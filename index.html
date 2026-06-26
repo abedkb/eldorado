@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>El Dorado Boutique</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ════════════════════════════════════════════════════════════════
+   STOREFRONT THEME — Rose Gold & White, feminine, editorial
+   ════════════════════════════════════════════════════════════════ */
+:root{
+  --rg:#C4956A;         /* rose gold */
+  --rg-light:#E8C9A8;
+  --rg-pale:#FAF3EC;
+  --rg-dark:#8C5E3C;
+  --cream:#FDFAF6;
+  --white:#FFFFFF;
+  --ink:#1E1A17;
+  --ink2:#3D3530;
+  --ink3:#6B5E55;
+  --ink4:#9C8880;
+  --line:rgba(196,149,106,0.2);
+  --line-hover:rgba(196,149,106,0.55);
+  --card-bg:#FFFFFF;
+  --shadow:0 4px 28px rgba(139,94,60,0.10);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:'Jost',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden;}
+
+/* ─── STOREFRONT NAV ─── */
+#storeNav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(253,250,246,0.96);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);padding:0 5%;height:66px;display:flex;align-items:center;justify-content:space-between;}
+.s-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--rg-dark);letter-spacing:4px;text-decoration:none;text-transform:uppercase;}
+.s-logo span{color:var(--rg);font-style:italic;}
+.s-nav-links{display:flex;gap:36px;list-style:none;}
+.s-nav-links a{color:var(--ink3);text-decoration:none;font-size:11px;letter-spacing:2px;text-transform:uppercase;transition:color 0.3s;cursor:pointer;}
+.s-nav-links a:hover{color:var(--rg);}
+.s-nav-right{display:flex;align-items:center;gap:14px;}
+.s-cart-btn{background:none;border:1px solid var(--line);color:var(--ink);padding:9px 18px;cursor:pointer;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;transition:all 0.3s;display:flex;align-items:center;gap:8px;border-radius:2px;}
+.s-cart-btn:hover{border-color:var(--rg);color:var(--rg);}
+.s-cart-count{background:var(--rg);color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;}
+.s-hamburger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px;}
+.s-hamburger span{display:block;width:22px;height:1.5px;background:var(--ink3);}
+.s-mobile-menu{display:none;position:fixed;top:66px;left:0;right:0;background:rgba(253,250,246,0.98);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);padding:20px 5%;z-index:999;flex-direction:column;gap:4px;}
+.s-mobile-menu.open{display:flex;}
+.s-mobile-menu a{color:var(--ink3);text-decoration:none;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:14px 0;border-bottom:1px solid var(--line);transition:color 0.3s;cursor:pointer;}
+.s-mobile-menu a:last-child{border-bottom:none;}
+.s-mobile-menu a:hover{color:var(--rg);}
+@media(max-width:768px){.s-nav-links{display:none;}.s-hamburger{display:flex;}}
+
+/* ─── HERO ─── */
+.s-hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 5% 60px;position:relative;overflow:hidden;background:linear-gradient(160deg,#FDFAF6 0%,#F7EDE2 100%);}
+.hero-circle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;border-radius:50%;border:1px solid rgba(196,149,106,0.12);pointer-events:none;}
+.hero-circle2{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;border:1px solid rgba(196,149,106,0.08);pointer-events:none;}
+.hero-eyebrow{font-size:10px;letter-spacing:7px;text-transform:uppercase;color:var(--rg);margin-bottom:28px;display:flex;align-items:center;justify-content:center;gap:10px;animation:fadeUp 0.8s ease both;}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:30px;height:1px;background:var(--rg);}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,9vw,110px);font-weight:300;line-height:0.95;color:var(--ink);margin-bottom:18px;animation:fadeUp 0.8s 0.15s ease both;letter-spacing:-1px;}
+.hero-title em{font-style:italic;color:var(--rg);}
+.hero-divider{width:40px;height:1px;background:var(--rg);margin:0 auto 22px;animation:fadeUp 0.8s 0.25s ease both;}
+.hero-sub{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--ink3);margin-bottom:52px;animation:fadeUp 0.8s 0.3s ease both;}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:fadeUp 0.8s 0.45s ease both;}
+.btn-rg{background:var(--rg);color:#fff;border:none;padding:15px 40px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all 0.3s;font-weight:500;border-radius:2px;}
+.btn-rg:hover{background:var(--rg-dark);}
+.btn-outline{background:transparent;color:var(--ink);border:1px solid rgba(30,26,23,0.25);padding:15px 40px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;transition:all 0.3s;border-radius:2px;}
+.btn-outline:hover{border-color:var(--rg);color:var(--rg);}
+.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--ink4);font-size:9px;letter-spacing:3px;text-transform:uppercase;}
+.hero-scroll::after{content:'';width:1px;height:44px;background:linear-gradient(to bottom,var(--rg),transparent);animation:scrollLine 2s ease-in-out infinite;}
+
+/* ─── SECTION ─── */
+.s-section{padding:90px 5%;}
+.s-section-label{font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--rg);display:block;margin-bottom:14px;text-align:center;}
+.s-section-divider{width:40px;height:1px;background:var(--rg);margin:0 auto 18px;}
+.s-section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,54px);font-weight:300;color:var(--ink);text-align:center;}
+
+/* ─── FILTER BAR ─── */
+.s-filter-bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:44px 0;}
+.s-filter-btn{background:none;border:1px solid var(--line);color:var(--ink3);padding:9px 22px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;border-radius:2px;flex-shrink:0;}
+.s-filter-btn:hover,.s-filter-btn.active{border-color:var(--rg);color:var(--rg);background:rgba(196,149,106,0.06);}
+@media(max-width:640px){
+  .s-filter-bar{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;padding:4px 5% 14px;margin:32px 0;scrollbar-width:none;}
+  .s-filter-bar::-webkit-scrollbar{display:none;}
+  .s-filter-btn{scroll-snap-align:start;}
+}
+
+/* ─── PRODUCT GRID ─── */
+.s-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;max-width:1200px;margin:0 auto;}
+.s-grid-state{grid-column:1/-1;text-align:center;padding:80px 20px;color:var(--ink3);}
+.s-spinner{width:32px;height:32px;border:1px solid var(--line);border-top-color:var(--rg);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 20px;}
+
+/* ─── PRODUCT CARD ─── */
+.s-card{background:var(--card-bg);border:1px solid var(--line);overflow:hidden;transition:all 0.4s;position:relative;border-radius:6px;}
+.s-card:hover{border-color:var(--line-hover);transform:translateY(-5px);box-shadow:var(--shadow);}
+.s-card.taken{opacity:0.5;pointer-events:none;}
+.s-img-wrap{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--rg-pale);}
+.s-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.7s ease;}
+.s-card:hover .s-img-wrap img{transform:scale(1.05);}
+.s-badge{position:absolute;top:14px;left:14px;background:var(--rg);color:#fff;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;font-weight:600;border-radius:2px;}
+.s-taken-stamp{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(253,250,246,0.7);}
+.s-taken-stamp span{border:2px solid var(--rg);color:var(--rg);font-size:12px;letter-spacing:4px;text-transform:uppercase;padding:9px 20px;font-weight:600;transform:rotate(-15deg);}
+.s-hover-overlay{position:absolute;inset:0;background:rgba(30,26,23,0.3);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.4s;}
+.s-card:hover .s-hover-overlay{opacity:1;}
+.s-qv-btn{background:var(--white);color:var(--ink);border:none;padding:11px 24px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-weight:500;transition:background 0.2s;border-radius:2px;}
+.s-qv-btn:hover{background:var(--rg-pale);}
+.s-card-info{padding:16px 16px 8px;}
+.s-card-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:400;color:var(--ink);margin-bottom:4px;}
+.s-card-price{font-size:13px;color:var(--rg-dark);letter-spacing:1px;}
+.s-card-actions{padding:8px 16px 16px;}
+.s-add-btn{width:100%;background:none;border:1px solid var(--line);color:var(--ink3);padding:10px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;border-radius:2px;}
+.s-add-btn:hover:not(:disabled){border-color:var(--rg);color:var(--rg);background:rgba(196,149,106,0.05);}
+.s-add-btn.in-cart{border-color:var(--rg);color:var(--rg);background:rgba(196,149,106,0.07);}
+.s-add-btn:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* ─── CART SIDEBAR ─── */
+.s-cart-overlay{position:fixed;inset:0;background:rgba(30,26,23,0.5);z-index:2000;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.s-cart-overlay.open{opacity:1;pointer-events:all;}
+.s-cart-sidebar{position:fixed;top:0;right:0;bottom:0;width:min(430px,100vw);background:var(--white);border-left:1px solid var(--line);z-index:2001;transform:translateX(100%);transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;}
+.s-cart-sidebar.open{transform:translateX(0);}
+.s-cart-header{padding:22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.s-cart-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--ink);}
+.s-icon-btn{background:none;border:none;color:var(--ink3);cursor:pointer;font-size:18px;padding:4px;transition:color 0.2s;}
+.s-icon-btn:hover{color:var(--rg);}
+.s-cart-body{flex:1;overflow-y:auto;padding:14px;}
+.s-cart-empty{text-align:center;padding:70px 20px;color:var(--ink3);font-size:13px;line-height:2;}
+.s-cart-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);}
+.s-cart-item-img{width:72px;height:90px;object-fit:cover;background:var(--rg-pale);flex-shrink:0;border-radius:3px;}
+.s-cart-item-info{flex:1;}
+.s-cart-item-name{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--ink);margin-bottom:4px;}
+.s-cart-item-price{font-size:12px;color:var(--rg-dark);margin-bottom:8px;}
+.s-size-row{font-size:10px;color:var(--ink3);display:flex;align-items:center;gap:8px;margin-bottom:8px;letter-spacing:1px;}
+.s-size-sel{background:var(--rg-pale);border:1px solid var(--line);color:var(--ink);font-family:'Jost',sans-serif;font-size:10px;padding:4px 8px;cursor:pointer;border-radius:2px;}
+.s-qty-row{display:flex;align-items:center;gap:10px;font-size:13px;}
+.s-qty-btn{background:none;border:1px solid var(--line);color:var(--ink3);width:26px;height:26px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;border-radius:2px;}
+.s-qty-btn:hover{border-color:var(--rg);color:var(--rg);}
+.s-rm-btn{background:none;border:none;color:var(--ink4);cursor:pointer;font-size:17px;padding:4px;margin-left:auto;transition:color 0.2s;}
+.s-rm-btn:hover{color:#C0392B;}
+.s-cart-footer{padding:20px;border-top:1px solid var(--line);flex-shrink:0;}
+.s-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.s-total-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);}
+.s-total-amt{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--rg-dark);}
+.s-phone-field{margin-bottom:12px;}
+.s-phone-field label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:6px;}
+.s-phone-field input{width:100%;background:var(--rg-pale);border:1px solid var(--line);color:var(--ink);padding:11px 14px;font-family:'Jost',sans-serif;font-size:13px;outline:none;border-radius:2px;}
+.s-phone-field input:focus{border-color:var(--rg);}
+.s-wa-btn{width:100%;background:#25D366;color:#fff;border:none;padding:15px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:500;transition:background 0.3s;border-radius:2px;margin-bottom:10px;}
+.s-wa-btn:hover{background:#1fba58;}
+.s-wa-btn svg{width:17px;height:17px;fill:#fff;flex-shrink:0;}
+.s-checkout-hint{font-size:11px;color:var(--ink3);text-align:center;line-height:1.6;}
+
+/* ─── MODAL ─── */
+.s-modal-bg{position:fixed;inset:0;background:rgba(30,26,23,0.75);z-index:3000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.s-modal-bg.open{opacity:1;pointer-events:all;}
+.s-modal-box{background:var(--white);max-width:800px;width:100%;max-height:90vh;overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;transform:scale(0.94);transition:transform 0.3s;position:relative;border-radius:6px;}
+.s-modal-bg.open .s-modal-box{transform:scale(1);}
+.s-modal-photo{width:100%;height:100%;min-height:320px;object-fit:cover;background:var(--rg-pale);display:block;}
+.s-modal-info{padding:36px 30px;}
+.s-close-btn{position:absolute;top:14px;right:14px;background:var(--white);border:1px solid var(--line);color:var(--ink3);cursor:pointer;font-size:15px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;z-index:10;transition:all 0.2s;border-radius:2px;}
+.s-close-btn:hover{border-color:var(--rg);color:var(--rg);}
+.s-modal-cat{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--rg);margin-bottom:10px;display:block;}
+.s-modal-name{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;color:var(--ink);margin-bottom:8px;}
+.s-modal-price{font-size:16px;color:var(--rg-dark);letter-spacing:2px;margin-bottom:26px;}
+.s-modal-taken{background:rgba(192,57,43,0.08);border:1px solid rgba(192,57,43,0.25);color:#C0392B;padding:10px 14px;font-size:11px;text-align:center;margin-bottom:16px;border-radius:2px;letter-spacing:1px;}
+.s-size-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;display:block;}
+.s-size-grid{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:26px;}
+.s-size-chip{background:none;border:1px solid var(--line);color:var(--ink3);padding:9px 14px;font-family:'Jost',sans-serif;font-size:11px;cursor:pointer;transition:all 0.2s;border-radius:2px;}
+.s-size-chip:hover,.s-size-chip.active{border-color:var(--rg);color:var(--rg);background:rgba(196,149,106,0.06);}
+.s-modal-add-btn{width:100%;background:var(--rg);color:#fff;border:none;padding:15px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-weight:600;transition:background 0.3s;border-radius:2px;}
+.s-modal-add-btn:hover{background:var(--rg-dark);}
+.s-modal-add-btn:disabled{opacity:0.4;cursor:not-allowed;}
+@media(max-width:620px){.s-modal-box{grid-template-columns:1fr;}.s-modal-photo{max-height:250px;}}
+
+/* ─── CONTACT ─── */
+.s-contact{padding:90px 5%;background:var(--white);border-top:1px solid var(--line);}
+.s-contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:32px;max-width:860px;margin:56px auto 0;text-align:center;}
+.s-contact-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--rg);display:block;margin-bottom:8px;}
+.s-contact-val{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--ink);}
+.s-pay-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:40px;}
+.s-pay-pill{background:var(--rg-pale);border:1px solid var(--line);color:var(--ink3);padding:6px 16px;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-radius:2px;}
+
+footer{padding:32px 5%;border-top:1px solid var(--line);text-align:center;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);}
+footer b{color:var(--rg-dark);font-weight:400;}
+
+/* ─── LOGIN OVERLAY ─── */
+.s-login-overlay{position:fixed;inset:0;background:rgba(30,26,23,0.88);z-index:6000;display:none;align-items:center;justify-content:center;}
+.s-login-overlay.open{display:flex;}
+.s-login-card{background:var(--white);padding:42px 38px;width:min(380px,92vw);text-align:center;border-radius:6px;border:1px solid var(--line);}
+.s-login-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--rg-dark);margin-bottom:6px;}
+.s-login-sub{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ink3);margin-bottom:32px;}
+.s-login-err{font-size:11px;color:#C0392B;margin-bottom:12px;min-height:16px;}
+.s-login-card input{width:100%;background:var(--rg-pale);border:1px solid var(--line);color:var(--ink);padding:11px 14px;font-family:'Jost',sans-serif;font-size:13px;outline:none;border-radius:2px;margin-bottom:14px;text-align:center;}
+.s-login-card input:focus{border-color:var(--rg);}
+
+/* ─── GEAR BTN ─── */
+.s-gear-btn{position:fixed;bottom:24px;left:24px;background:var(--white);border:1px solid var(--line);color:var(--ink3);width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:500;transition:all 0.3s;box-shadow:var(--shadow);}
+.s-gear-btn:hover{border-color:var(--rg);color:var(--rg);transform:rotate(45deg);}
+
+/* ─── TOAST ─── */
+.s-toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(90px);background:var(--ink);color:var(--white);padding:12px 26px;font-size:12px;letter-spacing:1px;z-index:9999;transition:transform 0.4s ease;white-space:nowrap;border-radius:3px;max-width:90vw;text-align:center;}
+.s-toast.show{transform:translateX(-50%) translateY(0);}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes scrollLine{0%{opacity:0;transform:translateY(-8px);}50%{opacity:1;}100%{opacity:0;transform:translateY(8px);}}
+.fade-in{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* ════════════════════════════════════════════════════════════════
+   ADMIN THEME — warm ivory & rose gold
+   Namespaced under #adminApp — no bleed into storefront
+   ════════════════════════════════════════════════════════════════ */
+#adminApp{
+  --a-bg:#F9F6F2;--a-panel:#FFFFFF;--a-text:#1E1A17;--a-muted:#7A6B62;
+  --a-line:#EDE7DF;--a-accent:#3D2B1F;--a-rg:#C4956A;--a-rg-light:#FAF3EC;
+  --a-green:#2D6A4F;--a-green-light:#E8F5EE;--a-red:#9B2335;--a-red-light:#FDF0F0;
+  --a-amber:#92650A;--a-amber-light:#FDF6E3;--a-blue:#1565C0;--a-blue-light:#E3F2FD;
+  --a-radius:14px;--a-radius-sm:9px;--a-shadow:0 2px 16px rgba(0,0,0,0.06);
+  --a-sidebar-w:230px;
+  font-family:'DM Sans',sans-serif;background:var(--a-bg);color:var(--a-text);min-height:100vh;
+  position:fixed;inset:0;z-index:8000;display:none;overflow:hidden;
+}
+#adminApp.open{display:block;}
+#adminApp *{box-sizing:border-box;}
+#adminApp .app{display:grid;grid-template-columns:var(--a-sidebar-w) 1fr;height:100vh;overflow:hidden;}
+#adminApp .sidebar{background:var(--a-accent);color:#fff;height:100vh;display:flex;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch;flex-shrink:0;}
+#adminApp .brand{padding:22px 18px 16px;border-bottom:1px solid rgba(255,255,255,0.08);}
+#adminApp .brand-name{font-family:'DM Serif Display',serif;font-size:17px;color:#fff;line-height:1.25;}
+#adminApp .brand-sub{font-size:11px;color:rgba(255,255,255,0.38);margin-top:3px;}
+#adminApp .mode-badge{display:inline-flex;align-items:center;gap:5px;margin-top:8px;background:rgba(196,149,106,0.2);color:var(--a-rg);border:1px solid rgba(196,149,106,0.3);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+#adminApp .a-nav{position:static;top:auto;left:auto;right:auto;height:auto;z-index:auto;backdrop-filter:none;display:block;justify-content:flex-start;align-items:stretch;padding:10px 8px;flex:1;border-bottom:none;background:transparent;}
+#adminApp .nav-section{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.28);padding:12px 10px 6px;font-weight:600;}
+#adminApp .nav-btn{width:100%;border:none;background:transparent;color:rgba(255,255,255,0.52);text-align:left;padding:10px 12px;margin-bottom:1px;border-radius:var(--a-radius-sm);cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .15s;display:flex;align-items:center;gap:9px;}
+#adminApp .nav-btn:hover{background:rgba(255,255,255,0.07);color:#fff;}
+#adminApp .nav-btn.active{background:var(--a-rg);color:#1E1A17;}
+#adminApp .nav-btn .icon{font-size:15px;width:18px;text-align:center;}
+#adminApp .nav-btn .count-pill{margin-left:auto;background:var(--a-red);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:999px;}
+#adminApp .sidebar-footer{padding:14px 18px;border-top:1px solid rgba(255,255,255,0.08);font-size:11px;color:rgba(255,255,255,0.22);}
+#adminApp .main{padding:24px 28px;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;height:100vh;width:100%;}
+#adminApp .page{display:none;}
+#adminApp .page.active{display:block;}
+#adminApp .topbar{margin-bottom:20px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+#adminApp .topbar-left h2{font-family:'DM Serif Display',serif;font-size:27px;font-weight:400;}
+#adminApp .topbar-left p{color:var(--a-muted);font-size:13px;margin-top:3px;}
+#adminApp .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px;}
+#adminApp .card{background:var(--a-panel);border-radius:var(--a-radius);padding:18px 20px;box-shadow:var(--a-shadow);border:1px solid var(--a-line);}
+#adminApp .c-label{font-size:11px;color:var(--a-muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;}
+#adminApp .c-value{font-size:22px;font-weight:700;margin-top:8px;line-height:1;}
+#adminApp .c-badge{display:inline-flex;align-items:center;margin-top:8px;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600;}
+#adminApp .badge-green{background:var(--a-green-light);color:var(--a-green);}
+#adminApp .badge-amber{background:var(--a-amber-light);color:var(--a-amber);}
+#adminApp .badge-red{background:var(--a-red-light);color:var(--a-red);}
+#adminApp .badge-gray{background:#F0EEEA;color:#555;}
+#adminApp .section{background:var(--a-panel);border-radius:var(--a-radius);box-shadow:var(--a-shadow);border:1px solid var(--a-line);overflow:hidden;margin-bottom:16px;}
+#adminApp .section-header{padding:14px 20px;border-bottom:1px solid var(--a-line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;background:#FAFAF8;}
+#adminApp .section-header h3{font-size:14px;font-weight:600;}
+#adminApp .section-body{padding:20px;}
+#adminApp .grid-2{display:grid;grid-template-columns:2fr 1fr;gap:16px;}
+#adminApp .summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+#adminApp .mini{background:var(--a-bg);border-radius:var(--a-radius-sm);padding:14px;border:1px solid var(--a-line);}
+#adminApp .mini .label{font-size:11px;color:var(--a-muted);font-weight:500;}
+#adminApp .mini .value{font-size:19px;font-weight:700;margin-top:5px;}
+#adminApp .alert-box{border:1px solid var(--a-line);border-left:3px solid var(--a-rg);padding:11px 14px;border-radius:var(--a-radius-sm);margin-bottom:10px;}
+#adminApp .alert-box.danger{border-left-color:var(--a-red);background:var(--a-red-light);}
+#adminApp .alert-box.success{border-left-color:var(--a-green);background:var(--a-green-light);}
+#adminApp .table-wrap{overflow-x:auto;}
+#adminApp table{width:100%;border-collapse:collapse;min-width:500px;}
+#adminApp th{text-align:left;padding:9px 12px;font-size:11px;font-weight:600;color:var(--a-muted);text-transform:uppercase;letter-spacing:.05em;background:#FAFAF8;border-bottom:1px solid var(--a-line);}
+#adminApp td{padding:10px 12px;font-size:13px;border-bottom:1px solid var(--a-line);vertical-align:middle;}
+#adminApp tr:last-child td{border-bottom:none;}
+#adminApp tr:hover td{background:#FAFAF8;}
+#adminApp .pill{display:inline-flex;align-items:center;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:600;}
+#adminApp .pill-green{background:var(--a-green-light);color:var(--a-green);}
+#adminApp .pill-amber{background:var(--a-amber-light);color:var(--a-amber);}
+#adminApp .pill-red{background:var(--a-red-light);color:var(--a-red);}
+#adminApp .pill-gray{background:#F0EEEA;color:#555;}
+#adminApp .pill-blue{background:var(--a-blue-light);color:var(--a-blue);}
+#adminApp .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;}
+#adminApp .form-grid .full{grid-column:1/-1;}
+#adminApp .field{display:flex;flex-direction:column;gap:5px;}
+#adminApp .field label{font-size:11px;font-weight:600;color:var(--a-muted);text-transform:uppercase;letter-spacing:.05em;}
+#adminApp input,#adminApp select,#adminApp textarea{padding:10px 12px;border:1.5px solid var(--a-line);border-radius:var(--a-radius-sm);font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--a-text);width:100%;transition:border-color .15s;outline:none;}
+#adminApp input:focus,#adminApp select:focus,#adminApp textarea:focus{border-color:var(--a-rg);}
+#adminApp input:read-only{background:var(--a-bg);cursor:not-allowed;}
+#adminApp .field-error{font-size:11px;color:var(--a-red);margin-top:2px;display:none;}
+#adminApp .field-error.show{display:block;}
+#adminApp .btn{border:none;background:var(--a-accent);color:#fff;padding:9px 16px;border-radius:var(--a-radius-sm);cursor:pointer;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;transition:all .15s;display:inline-flex;align-items:center;gap:6px;}
+#adminApp .btn:hover{opacity:0.85;}
+#adminApp .btn:disabled{opacity:0.4;cursor:not-allowed;}
+#adminApp .btn.secondary{background:var(--a-line);color:var(--a-text);}
+#adminApp .btn.gold{background:var(--a-rg);color:#1a1a1a;}
+#adminApp .btn.danger{background:var(--a-red);color:#fff;}
+#adminApp .btn.success{background:var(--a-green);color:#fff;}
+#adminApp .btn.sm{padding:5px 11px;font-size:11px;}
+#adminApp .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center;}
+#adminApp .notify{padding:10px 14px;border-radius:var(--a-radius-sm);font-size:13px;font-weight:500;margin-bottom:12px;display:none;}
+#adminApp .notify.show{display:block;}
+#adminApp .notify.success{background:var(--a-green-light);color:var(--a-green);}
+#adminApp .notify.error{background:var(--a-red-light);color:var(--a-red);}
+#adminApp .empty-state{text-align:center;padding:40px 20px;color:var(--a-muted);font-size:13px;}
+#adminApp .empty-state .icon{font-size:28px;margin-bottom:10px;}
+#adminApp .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:9100;align-items:center;justify-content:center;}
+#adminApp .modal-overlay.open{display:flex;}
+#adminApp .modal{background:var(--a-panel);border-radius:var(--a-radius);padding:24px;width:90%;max-width:460px;box-shadow:0 20px 60px rgba(0,0,0,0.2);}
+#adminApp .modal h3{font-size:17px;font-weight:600;margin-bottom:14px;}
+#adminApp .modal-actions{display:flex;gap:10px;margin-top:16px;justify-content:flex-end;}
+#adminApp .a-hamburger{display:none;background:var(--a-accent);color:#fff;border:none;padding:9px 13px;cursor:pointer;font-size:18px;position:fixed;top:12px;left:12px;z-index:9400;border-radius:8px;}
+#adminApp .sidebar-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9200;}
+#adminApp .sidebar-backdrop.open{display:block;}
+#adminApp .sidebar-close-btn{display:none;}
+#adminApp .loading-row td{text-align:center;color:var(--a-muted);padding:30px;font-style:italic;}
+#adminApp .sync-dot{width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block;margin-right:4px;animation:pulse 2s ease-in-out infinite;}
+#adminApp .report-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px;}
+#adminApp .upload-box{border:1px dashed var(--a-line);padding:28px 20px;text-align:center;cursor:pointer;transition:all 0.3s;position:relative;margin-bottom:14px;border-radius:var(--a-radius-sm);background:var(--a-bg);}
+#adminApp .upload-box:hover,#adminApp .upload-box.drag{border-color:var(--a-rg);background:var(--a-rg-light);}
+#adminApp .upload-box input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+#adminApp .upload-icon-txt{font-size:24px;color:var(--a-rg);margin-bottom:8px;}
+#adminApp .upload-hint{font-size:12px;color:var(--a-muted);}
+#adminApp .previews{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:8px;margin-bottom:14px;}
+#adminApp .preview-item{position:relative;aspect-ratio:3/4;}
+#adminApp .preview-item img{width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--a-radius-sm);}
+#adminApp .preview-rm{position:absolute;top:3px;right:3px;background:rgba(0,0,0,0.65);color:#fff;border:none;width:20px;height:20px;font-size:11px;cursor:pointer;border-radius:50%;}
+#adminApp .toggle-wrap{display:flex;align-items:center;gap:8px;}
+#adminApp .toggle{width:38px;height:20px;background:var(--a-line);border-radius:11px;position:relative;cursor:pointer;transition:all 0.3s;flex-shrink:0;}
+#adminApp .toggle::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);transition:all 0.3s;}
+#adminApp .toggle.on{background:var(--a-green);}
+#adminApp .toggle.on::after{transform:translateX(18px);}
+#adminApp .order-card{border:1px solid var(--a-line);border-radius:var(--a-radius-sm);padding:14px 16px;margin-bottom:10px;background:var(--a-panel);}
+#adminApp .order-card.pending{border-left:3px solid var(--a-rg);background:var(--a-rg-light);}
+/* Mobile topnav */
+#adminApp .a-topnav{display:none;position:fixed;top:0;left:0;right:0;z-index:9500;background:var(--a-accent);flex-direction:column;}
+#adminApp .a-topnav-brand{display:flex;align-items:center;justify-content:space-between;padding:8px 14px 4px;}
+#adminApp .a-topnav-title{font-family:'DM Serif Display',serif;font-size:15px;color:#fff;}
+#adminApp .a-topnav-action-btn{background:rgba(255,255,255,0.12);border:none;color:rgba(255,255,255,0.7);font-size:11px;padding:5px 10px;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+#adminApp .a-topnav-tabs{display:flex;overflow-x:scroll;-webkit-overflow-scrolling:touch;touch-action:pan-x;scrollbar-width:none;padding:0 6px 0;}
+#adminApp .a-topnav-tabs::-webkit-scrollbar{display:none;}
+#adminApp .a-tab-btn{flex:0 0 auto;background:transparent;border:none;border-bottom:2px solid transparent;padding:6px 10px 8px;color:rgba(255,255,255,0.42);font-family:'DM Sans',sans-serif;cursor:pointer;transition:color .15s,border-color .15s;white-space:nowrap;position:relative;min-width:60px;}
+#adminApp .a-tab-btn .t-icon{font-size:18px;line-height:1.2;display:block;}
+#adminApp .a-tab-btn .t-label{font-size:9px;letter-spacing:0.3px;font-weight:500;display:block;}
+#adminApp .a-tab-btn:hover{color:rgba(255,255,255,0.75);}
+#adminApp .a-tab-btn.active{color:var(--a-rg);border-bottom-color:var(--a-rg);}
+#adminApp .a-tab-btn .t-pill{position:absolute;top:3px;right:4px;background:var(--a-red);color:#fff;font-size:8px;font-weight:700;padding:1px 4px;border-radius:999px;line-height:1.5;}
+
+@media(max-width:960px){
+  #adminApp .app{grid-template-columns:1fr;height:100vh;}
+  #adminApp .sidebar{position:fixed;left:calc(-1 * var(--a-sidebar-w) - 10px);width:var(--a-sidebar-w);z-index:9300;transition:left .25s;top:0;bottom:0;height:100vh;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:4px 0 24px rgba(0,0,0,0.3);touch-action:pan-y;}
+  #adminApp .sidebar.open{left:0;}
+  #adminApp .sidebar-backdrop.open{display:block;}
+  #adminApp .a-hamburger{display:none;}
+  #adminApp .sidebar-close-btn{display:block;position:absolute;top:14px;right:14px;background:rgba(255,255,255,0.1);border:none;color:#fff;width:30px;height:30px;border-radius:50%;font-size:14px;cursor:pointer;z-index:1;}
+  #adminApp .a-topnav{display:flex;}
+  #adminApp .main{padding:14px;padding-top:90px;height:100vh;}
+  #adminApp .cards{grid-template-columns:repeat(2,1fr);}
+  #adminApp .grid-2{grid-template-columns:1fr;}
+  #adminApp .report-grid{grid-template-columns:repeat(2,1fr);}
+  #adminApp .form-grid{grid-template-columns:1fr;}
+}
+@media(max-width:540px){
+  #adminApp .cards{grid-template-columns:1fr;}
+  #adminApp .report-grid{grid-template-columns:1fr;}
+  #adminApp .summary-grid{grid-template-columns:1fr;}
+}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     STOREFRONT
+════════════════════════════════════════════════════════ -->
+<div id="storeApp">
+
+<nav id="storeNav">
+  <a href="#" class="s-logo">El <span>Dorado</span></a>
+  <ul class="s-nav-links">
+    <li><a onclick="sScrollTo('collection')">Collection</a></li>
+    <li><a onclick="sScrollTo('contact')">Contact</a></li>
+  </ul>
+  <div class="s-nav-right">
+    <button class="s-cart-btn" onclick="openCart()">
+      Cart <span class="s-cart-count" id="cartCount">0</span>
+    </button>
+    <button class="s-hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="s-mobile-menu" id="mobileMenu">
+  <a onclick="sScrollTo('collection');closeMobile()">Collection</a>
+  <a onclick="sScrollTo('contact');closeMobile()">Contact</a>
+  <a onclick="openCart();closeMobile()">Cart (<span id="mCartCount">0</span>)</a>
+</div>
+
+<section class="s-hero">
+  <div class="hero-circle"></div>
+  <div class="hero-circle2"></div>
+  <span class="hero-eyebrow">Classic Women's Footwear</span>
+  <h1 class="hero-title">El <em>Dorado</em><br>Boutique</h1>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">Heels · Flats · Sandals · Boots · Sneakers</p>
+  <div class="hero-cta">
+    <a class="btn-rg" onclick="sScrollTo('collection')">Shop Collection</a>
+    <a class="btn-outline" onclick="sScrollTo('contact')">Get in Touch</a>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<section class="s-section" id="collection">
+  <span class="s-section-label fade-in">The Collection</span>
+  <div class="s-section-divider fade-in"></div>
+  <h2 class="s-section-title fade-in">Step Into Elegance</h2>
+  <div class="s-filter-bar">
+    <button class="s-filter-btn active" onclick="doFilter('all',this)">All</button>
+    <button class="s-filter-btn" onclick="doFilter('heels',this)">Heels</button>
+    <button class="s-filter-btn" onclick="doFilter('flats',this)">Flats</button>
+    <button class="s-filter-btn" onclick="doFilter('sandals',this)">Sandals</button>
+    <button class="s-filter-btn" onclick="doFilter('boots',this)">Boots</button>
+    <button class="s-filter-btn" onclick="doFilter('sneakers',this)">Sneakers</button>
+  </div>
+  <div class="s-grid" id="productGrid">
+    <div class="s-grid-state"><div class="s-spinner"></div><p style="font-size:12px;letter-spacing:2px;color:var(--ink3)">Loading collection...</p></div>
+  </div>
+</section>
+
+<section class="s-contact" id="contact">
+  <div class="fade-in">
+    <span class="s-section-label">Reach Us</span>
+    <div class="s-section-divider"></div>
+    <h2 class="s-section-title">Get in Touch</h2>
+  </div>
+  <div class="s-contact-grid">
+    <div class="fade-in"><span class="s-contact-label">WhatsApp</span><p class="s-contact-val">0755 863 325</p></div>
+    <div class="fade-in"><span class="s-contact-label">Location</span><p class="s-contact-val">Survey Road</p></div>
+    <div class="fade-in"><span class="s-contact-label">Delivery</span><p class="s-contact-val">Anywhere in Tanzania</p></div>
+    <div class="fade-in"><span class="s-contact-label">Hours</span><p class="s-contact-val">Mon – Sat, 9am – 7pm</p></div>
+  </div>
+  <div class="s-pay-pills fade-in">
+    <div class="s-pay-pill">M-Pesa</div>
+    <div class="s-pay-pill">Airtel Money</div>
+    <div class="s-pay-pill">Voda Lipa</div>
+    <div class="s-pay-pill">CRDB Bank</div>
+    <div class="s-pay-pill">NMB Bank</div>
+  </div>
+</section>
+
+<footer><p>© 2026 <b>El Dorado Boutique</b> &nbsp;·&nbsp; All rights reserved &nbsp;·&nbsp; Survey Road</p></footer>
+
+<!-- CART SIDEBAR -->
+<div class="s-cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="s-cart-sidebar" id="cartSidebar">
+  <div class="s-cart-header">
+    <span class="s-cart-title">Your Selection</span>
+    <button class="s-icon-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div class="s-cart-body" id="cartBody">
+    <div class="s-cart-empty">Your cart is empty.<br><br>Browse our collection and add items.</div>
+  </div>
+  <div class="s-cart-footer" id="cartFooter" style="display:none;">
+    <div class="s-total-row">
+      <span class="s-total-label">Total</span>
+      <span class="s-total-amt" id="cartTotal">TZS 0</span>
+    </div>
+    <div class="s-phone-field">
+      <label>Your Phone Number</label>
+      <input type="tel" id="custPhone" placeholder="e.g. 0755 863 325"/>
+    </div>
+    <button class="s-wa-btn" onclick="placeOrder()">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Place Order via WhatsApp
+    </button>
+    <p class="s-checkout-hint">We'll confirm your order and arrange delivery & payment on WhatsApp.</p>
+  </div>
+</div>
+
+<!-- QUICK VIEW MODAL -->
+<div class="s-modal-bg" id="modalBg" onclick="closeBgModal(event)">
+  <div class="s-modal-box">
+    <img class="s-modal-photo" id="mPhoto" src="" alt=""/>
+    <div class="s-modal-info">
+      <button class="s-close-btn" onclick="closeModal()">✕</button>
+      <span class="s-modal-cat" id="mCat"></span>
+      <h3 class="s-modal-name" id="mName"></h3>
+      <p class="s-modal-price" id="mPrice"></p>
+      <div id="mTakenNotice" class="s-modal-taken" style="display:none;">This item is currently unavailable</div>
+      <span class="s-size-label">Select Size (EU)</span>
+      <div class="s-size-grid" id="mSizes"></div>
+      <button class="s-modal-add-btn" id="mAddBtn" onclick="addFromModal()">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div class="s-login-overlay" id="loginOverlay">
+  <div class="s-login-card">
+    <p class="s-login-title">Admin Access</p>
+    <p class="s-login-sub">El Dorado Boutique</p>
+    <p class="s-login-err" id="loginErr"></p>
+    <input type="password" id="pwInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="btn-rg" style="width:100%" onclick="doLogin()">Enter</button>
+    <br><br>
+    <button class="btn-outline" style="width:100%" onclick="closeLogin()">Cancel</button>
+  </div>
+</div>
+
+<button class="s-gear-btn" onclick="openLogin()" title="Admin">⚙</button>
+
+</div><!-- /#storeApp -->
+
+<!-- ════════════════════════════════════════════════════════
+     ADMIN DASHBOARD
+════════════════════════════════════════════════════════ -->
+<div id="adminApp">
+
+<!-- Mobile topnav -->
+<div class="a-topnav" id="aTopnav">
+  <div class="a-topnav-brand">
+    <span class="a-topnav-title">El Dorado · Admin</span>
+    <button class="a-topnav-action-btn" onclick="doLogout()">Toka</button>
+  </div>
+  <div class="a-topnav-tabs" id="aTopnavTabs">
+    <button class="a-tab-btn active" data-page="dashibodi"><span class="t-icon">📊</span><span class="t-label">Dashboard</span></button>
+    <button class="a-tab-btn" data-page="maagizo"><span class="t-icon">🛎</span><span class="t-label">Maagizo</span><span class="t-pill" id="mTopPill" style="display:none">0</span></button>
+    <button class="a-tab-btn" data-page="manunuzi"><span class="t-icon">📦</span><span class="t-label">Manunuzi</span></button>
+    <button class="a-tab-btn" data-page="mauzo"><span class="t-icon">🛍</span><span class="t-label">Mauzo</span></button>
+    <button class="a-tab-btn" data-page="gharama"><span class="t-icon">💸</span><span class="t-label">Matumizi</span></button>
+    <button class="a-tab-btn" data-page="hifadhi"><span class="t-icon">🗃</span><span class="t-label">Stock</span></button>
+    <button class="a-tab-btn" data-page="wateja"><span class="t-icon">👥</span><span class="t-label">Wateja</span></button>
+    <button class="a-tab-btn" data-page="kila-siku"><span class="t-icon">📅</span><span class="t-label">Siku</span></button>
+    <button class="a-tab-btn" data-page="ripoti"><span class="t-icon">📈</span><span class="t-label">Ripoti</span></button>
+  </div>
+</div>
+
+<button class="a-hamburger" onclick="toggleSidebar()">☰</button>
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close-btn" onclick="toggleSidebar()">✕</button>
+    <div class="brand">
+      <div class="brand-name">El Dorado<br>Boutique</div>
+      <div class="brand-sub">Mfumo wa Biashara</div>
+      <div class="mode-badge">✏ Msimamizi</div>
+    </div>
+    <nav class="a-nav">
+      <div class="nav-section">Muhtasari</div>
+      <button class="nav-btn active" data-page="dashibodi"><span class="icon">📊</span>Dashboard</button>
+      <div class="nav-section">Duka</div>
+      <button class="nav-btn" data-page="maagizo"><span class="icon">🛎</span>Maagizo<span class="count-pill" id="pendingPill" style="display:none;">0</span></button>
+      <div class="nav-section">Shughuli</div>
+      <button class="nav-btn" data-page="manunuzi"><span class="icon">📦</span>Manunuzi</button>
+      <button class="nav-btn" data-page="mauzo"><span class="icon">🛍</span>Mauzo</button>
+      <button class="nav-btn" data-page="gharama"><span class="icon">💸</span>Matumizi</button>
+      <div class="nav-section">Taarifa</div>
+      <button class="nav-btn" data-page="hifadhi"><span class="icon">🗃</span>Stock / Bidhaa</button>
+      <button class="nav-btn" data-page="wateja"><span class="icon">👥</span>Wateja</button>
+      <button class="nav-btn" data-page="kila-siku"><span class="icon">📅</span>Summary ya Siku</button>
+      <button class="nav-btn" data-page="ripoti"><span class="icon">📈</span>Ripoti</button>
+    </nav>
+    <div class="sidebar-footer">
+      <span class="sync-dot"></span>Live · El Dorado © 2026
+      <br><br>
+      <button class="btn sm secondary" style="width:100%;margin-bottom:6px;" onclick="window.open(location.href.split('#')[0],'_blank')">👠 Tazama Duka</button>
+      <button class="btn sm secondary" style="width:100%;" onclick="doLogout()">Toka</button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- DASHIBODI -->
+    <section id="dashibodi" class="page active">
+      <div class="topbar"><div class="topbar-left"><h2>Dashboard</h2><p>Muhtasari wa biashara ya El Dorado Boutique</p></div></div>
+      <div class="cards">
+        <div class="card"><div class="c-label">Jumla ya Manunuzi</div><div class="c-value" id="cardManunuzi">—</div><span class="c-badge badge-gray">Gharama</span></div>
+        <div class="card"><div class="c-label">Jumla ya Mauzo</div><div class="c-value" id="cardMauzo">—</div><span class="c-badge badge-green">Mapato</span></div>
+        <div class="card"><div class="c-label">Faida Halisi</div><div class="c-value" id="cardFaida">—</div><span class="c-badge" id="faidaBadge">—</span></div>
+        <div class="card"><div class="c-label">Madeni ya Wateja</div><div class="c-value" id="cardMadeni">—</div><span class="c-badge badge-amber">Mkopo</span></div>
+        <div class="card" style="border-left:3px solid var(--a-green)"><div class="c-label">💵 Hela Cash</div><div class="c-value" id="cardCash" style="color:var(--a-green)">—</div><span class="c-badge badge-green" style="font-size:10px">Cash Net</span></div>
+      </div>
+      <div class="grid-2">
+        <div class="section">
+          <div class="section-header"><h3>Muhtasari wa Biashara</h3></div>
+          <div class="section-body">
+            <div class="summary-grid">
+              <div class="mini"><div class="label">Mauzo ya Cash</div><div class="value" id="sumTaskimu">—</div></div>
+              <div class="mini"><div class="label">Mauzo ya Mkopo</div><div class="value" id="sumMkopo">—</div></div>
+              <div class="mini"><div class="label">Jumla ya Matumizi</div><div class="value" id="sumGharama">—</div></div>
+              <div class="mini"><div class="label">Viatu Vilivyobaki</div><div class="value" id="sumStock">—</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-header"><h3>Tahadhari</h3></div>
+          <div class="section-body">
+            <div class="alert-box danger" id="alertOrders" style="display:none;"><strong>🛎 Maagizo Mapya</strong><span id="txtOrders">—</span></div>
+            <div class="alert-box danger" id="alertHifadhi"><strong>⚠ Hifadhi Ndogo</strong><span id="txtHifadhi">Inaangalia...</span></div>
+            <div class="alert-box danger" id="alertMadeni"><strong>⚠ Madeni Yaliyokwisha Muda</strong><span id="txtMadeni">Inaangalia...</span></div>
+            <div class="alert-box" id="alertHali"><strong>📊 Hali ya Biashara</strong><span id="txtHali">—</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAAGIZO -->
+    <section id="maagizo" class="page">
+      <div class="topbar"><div class="topbar-left"><h2>Maagizo ya Duka</h2><p>Thibitisha au kataa maagizo ya wateja.</p></div></div>
+      <div class="section"><div class="section-header"><h3>🕐 Yanayosubiri Uthibitisho</h3></div>
+        <div class="section-body" id="pendingOrdersList"><div class="empty-state"><div class="icon">📭</div>Hakuna maagizo yanayosubiri.</div></div>
+      </div>
+      <div class="section"><div class="section-header"><h3>📋 Historia ya Maagizo</h3></div>
+        <div class="section-body"><div class="table-wrap"><table>
+          <thead><tr><th>Tarehe</th><th>Mteja</th><th>Simu</th><th>Bidhaa</th><th>Size</th><th>Idadi</th><th>Jumla</th><th>Hali</th></tr></thead>
+          <tbody id="tbody-order-history"><tr class="loading-row"><td colspan="8">Inapakia...</td></tr></tbody>
+        </table></div></div>
+      </div>
+    </section>
+
+    <!-- MANUNUZI -->
+    <section id="manunuzi" class="page">
+      <div class="topbar"><div class="topbar-left"><h2>Manunuzi</h2><p>Rekodi viatu vilivyonunuliwa kwa ajili ya duka.</p></div></div>
+      <div class="section"><div class="section-header"><h3>➕ Ongeza Ununuzi</h3></div>
+        <div class="section-body">
+          <div id="notifyManunuzi" class="notify"></div>
+          <div class="form-grid">
+            <div class="field"><label>Tarehe</label><input type="date" id="t-tarehe"/></div>
+            <div class="field"><label>Jina la Bidhaa</label><input type="text" id="t-jina" placeholder="mfano: Stiletto Heels, Ballet Flats"/><div class="field-error" id="err-t-jina">Jina linahitajika</div></div>
+            <div class="field"><label>Aina ya Viatu</label><select id="t-aina"><option>Heels</option><option>Flats</option><option>Sandals</option><option>Boots</option><option>Sneakers</option><option>Mengineyo</option></select></div>
+            <div class="field"><label>Idadi (Pairs)</label><input type="number" id="t-idadi" placeholder="1" min="1"/><div class="field-error" id="err-t-idadi">Weka idadi</div></div>
+            <div class="field"><label>Bei ya Kununulia (TZS)</label><input type="number" id="t-bei-kununulia" placeholder="0"/><div class="field-error" id="err-t-bei">Weka bei</div></div>
+            <div class="field"><label>Bei ya Kuuzia (TZS)</label><input type="number" id="t-bei-kuuzia" placeholder="0"/></div>
+            <div class="field full"><label>Msambazaji</label><input type="text" id="t-msambazaji" placeholder="Jina la msambazaji (hiari)"/></div>
+          </div>
+          <div class="controls">
+            <button class="btn gold" onclick="ongezaUununuzi()">💾 Hifadhi Ununuzi</button>
+            <button class="btn secondary" onclick="safishaManunuzi()">🗑 Futa</button>
+          </div>
+        </div>
+      </div>
+      <div class="section"><div class="section-header"><h3>📋 Rekodi za Manunuzi</h3></div>
+        <div class="section-body"><div class="table-wrap"><table>
+          <thead><tr><th>Tarehe</th><th>Bidhaa</th><th>Aina</th><th>Pairs</th><th>Bei Kununulia</th><th>Jumla</th><th>Msambazaji</th><th>Kitendo</th></tr></thead>
+          <tbody id="tbody-manunuzi"><tr class="loading-row"><td colspan="8">Inapakia...</td></tr></tbody>
+        </table></div></div>
+      </div>
+    </section>
+
+    <!-- MAUZO -->
+    <section id="mauzo" class="page">
+      <div class="topbar"><div class="topbar-left"><h2>Mauzo</h2><p>Fuatilia mauzo ya cash na mkopo.</p></div></div>
+      <div class="section"><div class="section-header"><h3>➕ Ongeza Uuzaji</h3></div>
+        <div class="section-body">
+          <div id="notifyMauzo" class="notify"></div>
+          <div class="form-grid">
+            <div class="field"><label>Tarehe</label><input type="date" id="m-tarehe"/></div>
+            <div class="field"><label>Jina la Mteja</label><input type="text" id="m-mteja" placeholder="Hiari kwa mauzo ya cash"/></div>
+            <div class="field"><label>Bidhaa</label><select id="m-bidhaa"></select></div>
+            <div class="field"><label>Idadi</label><input type="number" id="m-idadi" placeholder="1" min="1"/><div class="field-error" id="err-m-idadi">Weka idadi</div></div>
+            <div class="field"><label>Aina ya Mauzo</label><select id="m-aina" onchange="togglaMkopo()"><option value="Taslimu">Cash</option><option value="Mkopo">Mkopo</option></select></div>
+            <div class="field" id="wrap-kiasi" style="display:none"><label>Kiasi Kilicholipwa (TZS)</label><input type="number" id="m-kiasi" placeholder="0"/></div>
+            <div class="field" id="wrap-tarehe-mkopo" style="display:none"><label>Tarehe ya Mwisho wa Mkopo</label><input type="date" id="m-tarehe-mkopo"/></div>
+          </div>
+          <div class="controls">
+            <button class="btn gold" onclick="ongezaUuzaji()">💾 Hifadhi Uuzaji</button>
+            <button class="btn secondary" onclick="safishaMauzo()">🗑 Futa</button>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><h3>📋 Rekodi za Mauzo</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <input type="text" id="search-mauzo" placeholder="Tafuta..." oninput="renderMauzo()" style="width:180px"/>
+            <select id="filter-mauzo" onchange="renderMauzo()" style="width:auto"><option value="zote">Yote</option><option value="Taslimu">Cash</option><option value="Mkopo">Mkopo</option></select>
+          </div>
+        </div>
+        <div class="section-body"><div class="table-wrap"><table>
+          <thead><tr><th>Tarehe</th><th>Mteja</th><th>Bidhaa</th><th>Aina</th><th>Idadi</th><th>Jumla</th><th>Kilicholipwa</th><th>Bakaa</th><th>Status</th><th>Chanzo</th><th>Kitendo</th></tr></thead>
+          <tbody id="tbody-mauzo"><tr class="loading-row"><td colspan="11">Inapakia...</td></tr></tbody>
+        </table></div></div>
+      </div>
+    </section>
+
+    <!-- GHARAMA -->
+    <section id="gharama" class="page">
+      <div class="topbar"><div class="topbar-left"><h2>Matumizi</h2><p>Rekodi gharama za biashara.</p></div></div>
+      <div class="section"><div class="section-header"><h3>➕ Ongeza Matumizi</h3></div>
+        <div class="section-body">
+          <div id="notifyGharama" class="notify"></div>
+          <div class="form-grid">
+            <div class="field"><label>Tarehe</label><input type="date" id="g-tarehe"/></div>
+            <div class="field"><label>Aina ya Matumizi</label><input type="text" id="g-aina" placeholder="mfano: Usafiri, Packaging"/><div class="field-error" id="err-g-aina">Aina inahitajika</div></div>
+            <div class="field"><label>Kiasi (TZS)</label><input type="number" id="g-kiasi" placeholder="0"/><div class="field-error" id="err-g-kiasi">Weka kiasi</div></div>
+            <div class="field"><label>Maelezo (hiari)</label><input type="text" id="g-maelezo" placeholder="Maelezo zaidi..."/></div>
+          </div>
+          <div class="controls">
+            <button class="btn gold" onclick="ongezaGharama()">💾 Hifadhi Matumizi</button>
+            <button class="btn secondary" onclick="safishaGharama()">🗑 Futa</button>
+          </div>
+        </div>
+      </div>
+      <div class="section"><div class="section-header"><h3>📋 Rekodi za Matumizi</h3></div>
+        <div class="section-body"><div class="table-wrap"><table>
+          <thead><tr><th>Tarehe</th><th>Aina</th><th>Kiasi</th><th>Maelezo</th><th>Kitendo</th></tr></thead>
+          <tbody id="tbody-gharama"><tr class="loading-row"><td colspan="5">Inapakia...</td></tr></tbody>
+        </table></div></div>
+      </div>
+    </section>
+
+    <!-- HIFADHI -->
+    <section id="hifadhi" class="page">
+      <div class="topbar"><div class="topbar-left"><h2>Stock / Bidhaa</h2><p>Simamia hifadhi na bidhaa za duka.</p></div></div>
+      <div class="section">
+        <div class="section-header"><h3>📸 Ongeza Bidhaa Mpya na Picha</h3></div>
+        <div class="section-body">
+          <p style="font-size:12px;color:var(--a-muted);margin-bottom:14px;">Bidhaa hii itaonekana papo hapo kwenye duka la wateja.</p>
+          <div class="upload-box" id="uploadBox">
+            <input type="file" id="fileInput" accept="image/*" onchange="onFilePick(this)"/>
+            <div class="upload-icon-txt">👠</div>
+            <p class="upload-hint">Bonyeza au buruta picha ya viatu hapa</p>
+          </div>
+          <div class="previews" id="previews"></div>
+          <div class="form-grid">
+            <div class="field"><label>Jina la Bidhaa</label><input type="text" id="p-jina" placeholder="mfano: Rose Gold Stiletto"/></div>
+            <div class="field"><label>Bei ya Kuuzia (TZS)</label><input type="number" id="p-bei" placeholder="45000"/></div>
+            <div class="field"><label>Bei ya Kununulia (TZS, hiari)</label><input type="number" id="p-bei-gharama" placeholder="0"/></div>
+            <div class="field"><label>Idadi (Pairs)</label><input type="number" id="p-idadi" placeholder="1" min="1" value="1"/></div>
+            <div class="field"><label>Kategoria</label>
+              <select id="p-kategoria">
+                <option value="heels">Heels</option>
+                <option value="flats">Flats</option>
+                <option value="sandals">Sandals</option>
+                <option value="boots">Boots</option>
+                <option value="sneakers">Sneakers</option>
+              </select>
+            </div>
+            <div class="field"><label>Lebo (hiari)</label><input type="text" id="p-badge" placeholder="mfano: New Arrival"/></div>
+          </div>
+          <p class="notify" id="p-status" style="display:block;background:transparent;color:var(--a-amber);"></p>
+          <div class="controls">
+            <button class="btn gold" id="p-save-btn" onclick="saveProductWithPhoto()">💾 Hifadhi na Onyesha Dukani</button>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><h3>📦 Taarifa ya Stock</h3>
+          <input type="text" id="search-stock" placeholder="Tafuta..." oninput="renderStock()" style="width:200px"/>
+        </div>
+        <div class="section-body"><div class="table-wrap"><table>
+          <thead><tr><th></th><th>Bidhaa</th><th>Aina</th><th>Bei Kununulia</th><th>Bei Kuuzia</th><th>Faida %</th><th>Pairs</th><th>Hali</th><th>Dukani</th></tr></thead>
+          <tbody id="tbody-stock"><tr class="loading-row"><td colspan="9">Inapakia...</td></tr></tbody>
+        </table></div></div>
+      </div>
+    </section>
+
+    <!-- WATEJA -->
+    <section id="wateja" class="page">
+      <div class="topbar"><div class="topbar-left"><h2>Wateja</h2><p>Simamia madeni ya wateja wa mkopo.</p></div></div>
+      <div class="section"><div class="section-header"><h3>👥 Madeni ya Wateja</h3></div>
+        <div class="section-body"><div class="table-wrap"><table>
+          <thead><tr><th>Jina</th><th>Simu</th><th>Deni Lote</th><th>Kilicholipwa</th><th>Bakaa</th><th>Tarehe ya Mwisho</th><th>Hali</th><th>Kitendo</th></tr></thead>
+          <tbody id="tbody-wateja"><tr class="loading-row"><td colspan="8">Inapakia...</td></tr></tbody>
+        </table></div></div>
+      </div>
+      <div class="section" id="malipo-history-section" style="display:none;">
+        <div class="section-header">
+          <h3>📋 Historia ya Malipo — <span id="malipo-history-jina">—</span></h3>
+          <button class="btn sm secondary" onclick="document.getElementById('malipo-history-section').style.display='none'">Funga ✕</button>
+        </div>
+        <div class="section-body" style="padding:0;"><div class="table-wrap"><table>
+          <thead><tr><th>Tarehe</th><th>Kiasi</th><th>Bakaa Baada</th><th>Maelezo</th></tr></thead>
+          <tbody id="tbody-malipo-history"></tbody>
+        </table></div></div>
+      </div>
+    </section>
+
+    <!-- KILA SIKU -->
+    <section id="kila-siku" class="page">
+      <div class="topbar"><div class="topbar-left"><h2>Taarifa ya Siku</h2><p>Muhtasari wa shughuli kwa siku maalum.</p></div></div>
+      <div class="section"><div class="section-header"><h3>📅 Chagua Tarehe</h3></div>
+        <div class="section-body">
+          <div class="controls" style="margin-top:0">
+            <input type="date" id="ks-tarehe" onchange="renderKilaSiku()" style="width:200px"/>
+            <button class="btn secondary" onclick="wekaTariheLeo()">Leo</button>
+          </div>
+        </div>
+      </div>
+      <div class="cards" style="margin-top:16px">
+        <div class="card"><div class="c-label">Manunuzi ya Siku</div><div class="c-value" id="ks-manunuzi">—</div><span class="c-badge badge-gray">Bidhaa Zilizoingia</span></div>
+        <div class="card"><div class="c-label">Mauzo ya Cash</div><div class="c-value" id="ks-taslimu">—</div><span class="c-badge badge-green">Cash</span></div>
+        <div class="card"><div class="c-label">Mauzo ya Mkopo</div><div class="c-value" id="ks-mkopo">—</div><span class="c-badge badge-amber">Mkopo</span></div>
+        <div class="card"><div class="c-label">Hali ya Siku</div><div class="c-value" id="ks-hali">—</div><span class="c-badge" id="ks-hali-badge">—</span></div>
+      </div>
+      <div class="grid-2">
+        <div class="section"><div class="section-header"><h3>Muhtasari</h3></div>
+          <div class="section-body">
+            <div class="summary-grid">
+              <div class="mini"><div class="label">Idadi ya Manunuzi</div><div class="value" id="ks-n-manunuzi">0</div></div>
+              <div class="mini"><div class="label">Idadi ya Mauzo</div><div class="value" id="ks-n-mauzo">0</div></div>
+              <div class="mini"><div class="label">Bakaa ya Mkopo</div><div class="value" id="ks-bakaa">—</div></div>
+              <div class="mini"><div class="label">Jumla ya Mauzo</div><div class="value" id="ks-jumla-mauzo">—</div></div>
+            </div>
+            <p style="font-size:12px;color:var(--a-muted);margin-top:12px" id="ks-maelezo">Chagua tarehe kuona muhtasari.</p>
+          </div>
+        </div>
+        <div class="section"><div class="section-header"><h3>Utendaji</h3></div>
+          <div class="section-body"><div class="alert-box" id="ks-alert"><strong>Hali</strong><span id="ks-alert-txt">Chagua tarehe kwanza.</span></div></div>
+        </div>
+      </div>
+      <div class="section"><div class="section-header"><h3>Manunuzi ya Tarehe Hii</h3></div>
+        <div class="section-body"><div class="table-wrap"><table>
+          <thead><tr><th>Tarehe</th><th>Bidhaa</th><th>Aina</th><th>Pairs</th><th>Bei</th><th>Jumla</th><th>Msambazaji</th></tr></thead>
+          <tbody id="ks-tbody-m"></tbody>
+        </table></div></div>
+      </div>
+      <div class="section"><div class="section-header"><h3>Mauzo ya Tarehe Hii</h3></div>
+        <div class="section-body"><div class="table-wrap"><table>
+          <thead><tr><th>Tarehe</th><th>Mteja</th><th>Bidhaa</th><th>Aina</th><th>Pairs</th><th>Jumla</th><th>Kilicholipwa</th><th>Bakaa</th></tr></thead>
+          <tbody id="ks-tbody-s"></tbody>
+        </table></div></div>
+      </div>
+    </section>
+
+    <!-- RIPOTI -->
+    <section id="ripoti" class="page">
+      <div class="topbar"><div class="topbar-left"><h2>Ripoti</h2><p>Muhtasari kamili wa utendaji wa biashara.</p></div></div>
+      <div class="section" style="margin-bottom:16px"><div class="section-header"><h3>🔍 Chuja kwa Kipindi</h3></div>
+        <div class="section-body">
+          <div class="controls" style="margin-top:0;flex-wrap:wrap">
+            <div class="field" style="flex:1;min-width:150px"><label>Kuanzia</label><input type="date" id="r-kuanzia"/></div>
+            <div class="field" style="flex:1;min-width:150px"><label>Hadi</label><input type="date" id="r-hadi"/></div>
+            <button class="btn gold" onclick="renderRipoti()" style="margin-top:18px">Tumia</button>
+            <button class="btn secondary" onclick="futhaChujo()" style="margin-top:18px">Wakati Wote</button>
+            <button class="btn" onclick="hamishaCsv()" style="margin-top:18px">📥 CSV</button>
+          </div>
+        </div>
+      </div>
+      <div class="report-grid">
+        <div class="card"><div class="c-label">Jumla ya Manunuzi</div><div class="c-value" id="rep-manunuzi">—</div></div>
+        <div class="card"><div class="c-label">Jumla ya Mauzo</div><div class="c-value" id="rep-mauzo">—</div></div>
+        <div class="card"><div class="c-label">Jumla ya Matumizi</div><div class="c-value" id="rep-gharama">—</div></div>
+        <div class="card"><div class="c-label">Faida ya Jumla</div><div class="c-value" id="rep-faida-j">—</div></div>
+        <div class="card"><div class="c-label">Faida Halisi</div><div class="c-value" id="rep-faida-h">—</div></div>
+        <div class="card"><div class="c-label">Madeni ya Wateja</div><div class="c-value" id="rep-madeni">—</div></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- MODAL MALIPO -->
+<div class="modal-overlay" id="modalMalipo">
+  <div class="modal">
+    <h3>💳 Rekodi Malipo ya Mkopo</h3>
+    <div style="background:var(--a-bg);border-radius:var(--a-radius-sm);padding:12px 14px;margin-bottom:14px;">
+      <p style="font-size:13px;margin-bottom:4px">Mteja: <strong id="mp-jina">—</strong></p>
+      <p style="font-size:13px;margin-bottom:4px">Deni Lote: <strong id="mp-deni-lote">—</strong></p>
+      <p style="font-size:14px;color:var(--a-red)">Bakaa: <strong id="mp-bakaa">—</strong></p>
+    </div>
+    <div class="field" style="margin-bottom:10px"><label>Kiasi cha Malipo (TZS)</label><input type="number" id="mp-kiasi" placeholder="0" min="1"/></div>
+    <div class="field" style="margin-bottom:10px"><label>Tarehe ya Malipo</label><input type="date" id="mp-tarehe"/></div>
+    <div class="field"><label>Maelezo (hiari)</label><input type="text" id="mp-maelezo" placeholder="mfano: Malipo ya kwanza"/></div>
+    <div id="mp-notify" style="margin-top:10px;font-size:13px;display:none;padding:8px 12px;border-radius:8px;"></div>
+    <div class="modal-actions">
+      <button class="btn secondary" onclick="fungaAdminModal()">Ghairi</button>
+      <button class="btn gold" onclick="thibitishaMalipo()">💾 Hifadhi Malipo</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL FUTA -->
+<div class="modal-overlay" id="modalFuta">
+  <div class="modal">
+    <h3>⚠ Thibitisha Kufuta</h3>
+    <p style="font-size:13px;color:var(--a-muted);margin-bottom:18px">Una uhakika? Hatua hii haiwezi kurudishwa.</p>
+    <div class="modal-actions">
+      <button class="btn secondary" onclick="fungaAdminModal()">Ghairi</button>
+      <button class="btn danger" id="btn-thibitisha-futa">Futa</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL REJECT -->
+<div class="modal-overlay" id="modalRejectOrder">
+  <div class="modal">
+    <h3>❌ Kataa Agizo</h3>
+    <p style="font-size:13px;color:var(--a-muted);margin-bottom:14px">Stock haitabadilika.</p>
+    <div class="field"><label>Sababu (hiari)</label><input type="text" id="reject-reason" placeholder="mfano: Bidhaa haipo tena"/></div>
+    <div class="modal-actions">
+      <button class="btn secondary" onclick="fungaAdminModal()">Ghairi</button>
+      <button class="btn danger" id="btn-thibitisha-reject">Kataa Agizo</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /#adminApp -->
+
+<div class="s-toast" id="toast">—</div>
+
+<script>
+// ════════════════════════════════════════════════════════════════
+// CONFIG — update SB_URL and SB_KEY after creating Supabase project
+// ════════════════════════════════════════════════════════════════
+const SB_URL='https://vvpdcworhdrwboknncgh.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ2cGRjd29yaGRyd2Jva25uY2doIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTQ5OTIsImV4cCI6MjA4OTY5MDk5Mn0.s63-bYToyRqHNYPIib32Ns8xLK9TmmFhHi4fx7pnAcY';
+const PASS='Dorado2026';
+const CLD='djxnibsil';           // Cloudinary cloud name (reuse Alyah's or replace)
+const PRESET='alyahabubakar';    // Cloudinary upload preset (reuse or replace)
+const WA='255621049857';         // Admin WhatsApp number
+const SHOE_SIZES=['36','37','38','39','40','41','42','43'];
+const CAT_LABEL={heels:'Heels',flats:'Flats',sandals:'Sandals',boots:'Boots',sneakers:'Sneakers'};
+
+const H={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'};
+const DB={
+  async get(t,q=''){const r=await fetch(`${SB_URL}/rest/v1/${t}?${q}`,{headers:H});return r.json();},
+  async post(t,d){const r=await fetch(`${SB_URL}/rest/v1/${t}`,{method:'POST',headers:H,body:JSON.stringify(d)});return r.json();},
+  async patch(t,f,d){const r=await fetch(`${SB_URL}/rest/v1/${t}?${f}`,{method:'PATCH',headers:H,body:JSON.stringify(d)});return r.json();},
+  async del(t,f){await fetch(`${SB_URL}/rest/v1/${t}?${f}`,{method:'DELETE',headers:H});}
+};
+
+// ─── HELPERS ───────────────────────────────────────────────────
+function $(id){return document.getElementById(id);}
+function pesa(n){return new Intl.NumberFormat('en-TZ',{style:'currency',currency:'TZS',maximumFractionDigits:0}).format(n||0);}
+function leoISO(){return new Date().toISOString().slice(0,10);}
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+function sScrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+
+// ─── STATE ─────────────────────────────────────────────────────
+let allBidhaa=[],allManunuzi=[],allMauzo=[],allGharama=[],allWateja=[];
+let isAdmin=false;
+let maalipoMteja=null,deleteAction=null,rejectAction=null;
+let cart=[],curFilter='all',modalProduct=null,modalSize='38',uploadFile=null;
+let pollInterval=null,lastHash='';
+
+// ════════════════════════════════════════════════════════════════
+// STOREFRONT
+// ════════════════════════════════════════════════════════════════
+async function pollStore(){
+  try{
+    const data=await DB.get('bidhaa','order=created_at.desc');
+    if(!Array.isArray(data))return;
+    const hash=JSON.stringify(data.map(p=>p.id+'|'+p.idadi+'|'+p.img+'|'+p.onyesha_dukani));
+    if(hash!==lastHash){lastHash=hash;allBidhaa=data;renderGrid(curFilter);if(isAdmin){renderStock();jaziChaguoBidhaa();}}
+  }catch(e){console.warn('Poll failed',e);}
+}
+async function initStore(){await pollStore();pollInterval=setInterval(pollStore,4000);initObserver();}
+
+function dukaniProducts(){return allBidhaa.filter(p=>p.onyesha_dukani);}
+
+function renderGrid(f='all'){
+  const grid=$('productGrid');
+  const base=dukaniProducts();
+  const list=f==='all'?base:base.filter(p=>p.category===f);
+  const blank="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='400'%3E%3Crect fill='%23F7EDE2' width='300' height='400'/%3E%3C/svg%3E";
+  if(!list.length){grid.innerHTML='<div class="s-grid-state"><p style="font-size:12px;letter-spacing:2px;color:var(--ink3)">No items in this category yet.</p></div>';initObserver();return;}
+  grid.innerHTML=list.map((p,i)=>{
+    const soldOut=p.idadi<=0;
+    const ic=cart.some(c=>c.id===p.id);
+    return `<div class="s-card fade-in${soldOut?' taken':''}" style="transition-delay:${i*0.06}s">
+      <div class="s-img-wrap">
+        <img src="${p.img||blank}" alt="${p.jina}" loading="lazy" onerror="this.src='${blank}'"/>
+        ${p.badge?`<span class="s-badge">${p.badge}</span>`:''}
+        ${soldOut?`<div class="s-taken-stamp"><span>Sold Out</span></div>`:`<div class="s-hover-overlay"><button class="s-qv-btn" onclick="openModal('${p.id}')">Quick View</button></div>`}
+      </div>
+      <div class="s-card-info">
+        <p class="s-card-name">${p.jina}</p>
+        <p class="s-card-price">TZS ${Number(p.bei_kuuzia).toLocaleString()}/=</p>
+      </div>
+      <div class="s-card-actions">
+        <button class="s-add-btn${ic?' in-cart':''}" onclick="addToCart('${p.id}')"${soldOut?' disabled':''}>
+          ${soldOut?'Sold Out':ic?'✓ Added':'+ Add to Cart'}
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+  initObserver();
+}
+
+function doFilter(cat,btn){
+  curFilter=cat;
+  document.querySelectorAll('.s-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');renderGrid(cat);
+}
+
+// ─── CART ───────────────────────────────────────────────────
+function addToCart(id){
+  const p=allBidhaa.find(x=>x.id===id);if(!p||p.idadi<=0)return;
+  const ex=cart.find(c=>c.id===id);
+  if(ex){if(ex.qty<p.idadi)ex.qty++;else{toast('Hakuna stock zaidi ya '+p.idadi);return;}}
+  else cart.push({id:p.id,name:p.jina,price:p.bei_kuuzia,img:p.img,qty:1,size:'38',maxQty:p.idadi});
+  updateCartUI();renderGrid(curFilter);toast(p.jina+' added to cart');
+}
+function openCart(){$('cartOverlay').classList.add('open');$('cartSidebar').classList.add('open');renderCart();}
+function closeCart(){$('cartOverlay').classList.remove('open');$('cartSidebar').classList.remove('open');}
+function renderCart(){
+  const body=$('cartBody'),footer=$('cartFooter');
+  if(!cart.length){body.innerHTML='<div class="s-cart-empty">Your cart is empty.<br><br>Browse our collection.</div>';footer.style.display='none';return;}
+  footer.style.display='block';
+  body.innerHTML=cart.map(it=>`<div class="s-cart-item">
+    <img class="s-cart-item-img" src="${it.img}" alt="${it.name}" onerror="this.style.background='#F7EDE2'"/>
+    <div class="s-cart-item-info">
+      <p class="s-cart-item-name">${it.name}</p>
+      <p class="s-cart-item-price">TZS ${Number(it.price).toLocaleString()}/=</p>
+      <div class="s-size-row">Size (EU):
+        <select class="s-size-sel" onchange="setSize('${it.id}',this.value)">
+          ${SHOE_SIZES.map(s=>`<option value="${s}"${it.size===s?' selected':''}>${s}</option>`).join('')}
+        </select>
+      </div>
+      <div class="s-qty-row">
+        <button class="s-qty-btn" onclick="changeQty('${it.id}',-1)">−</button>
+        <span>${it.qty}</span>
+        <button class="s-qty-btn" onclick="changeQty('${it.id}',1)">+</button>
+        <button class="s-rm-btn" onclick="removeItem('${it.id}')">✕</button>
+      </div>
+    </div>
+  </div>`).join('');
+  $('cartTotal').textContent='TZS '+cart.reduce((s,i)=>s+i.price*i.qty,0).toLocaleString()+'/=';
+}
+function changeQty(id,d){
+  const i=cart.find(c=>c.id===id);if(!i)return;
+  if(d>0&&i.qty>=i.maxQty){toast('Hakuna stock zaidi ya '+i.maxQty);return;}
+  i.qty+=d;if(i.qty<=0)removeItem(id);else{updateCartUI();renderCart();}
+}
+function setSize(id,s){const i=cart.find(c=>c.id===id);if(i)i.size=s;}
+function removeItem(id){cart=cart.filter(c=>c.id!==id);updateCartUI();renderCart();renderGrid(curFilter);}
+function updateCartUI(){const n=cart.reduce((s,i)=>s+i.qty,0);$('cartCount').textContent=n;$('mCartCount').textContent=n;}
+
+// ─── PLACE ORDER ────────────────────────────────────────────
+async function placeOrder(){
+  if(!cart.length)return;
+  const phone=$('custPhone').value.trim();
+  if(!phone){toast('Tafadhali weka namba yako ya simu');$('custPhone').focus();return;}
+  try{
+    const tarehe=leoISO();
+    for(const it of cart){
+      const p=allBidhaa.find(x=>x.id===it.id);if(!p)continue;
+      await DB.post('mauzo',{
+        tarehe,mteja:'Mteja wa Duka',simu_mteja:phone,jina:it.name,aina_bidhaa:p.aina,
+        idadi:it.qty,bei_kuuzia:it.price,bei_kununulia:p.bei_kununulia,jumla:it.price*it.qty,
+        aina:'Mkopo',kilicholipwa:0,bakaa:it.price*it.qty,
+        chanzo:'Duka',hali_order:'Inasubiri',bidhaa_id:p.id,size:it.size
+      });
+    }
+    orderWhatsApp(phone);
+    toast('✅ Agizo limetumwa! Tutakuwasiliana hivi karibuni.');
+    cart=[];updateCartUI();renderCart();closeCart();
+  }catch(e){console.error(e);toast('❌ Hitilafu. Jaribu tena.');}
+}
+function orderWhatsApp(phone){
+  let msg="Hello El Dorado Boutique! 👠\n\n*My Order:*\n";
+  cart.forEach(i=>{msg+=`\n• ${i.name}\n  Size: EU ${i.size} | Qty: ${i.qty} | TZS ${(i.price*i.qty).toLocaleString()}/=`;});
+  msg+=`\n\n*Total: TZS ${cart.reduce((s,i)=>s+i.price*i.qty,0).toLocaleString()}/=*\n\nPhone: ${phone}\nDelivery Location: `;
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+// ─── MODAL ──────────────────────────────────────────────────
+function openModal(id){
+  const p=allBidhaa.find(x=>x.id===id);if(!p)return;
+  modalProduct=p;modalSize='38';
+  $('mPhoto').src=p.img;$('mName').textContent=p.jina;
+  $('mPrice').textContent='TZS '+Number(p.bei_kuuzia).toLocaleString()+'/=';
+  $('mCat').textContent=(CAT_LABEL[p.category]||p.category||'').toUpperCase();
+  const soldOut=p.idadi<=0;
+  $('mTakenNotice').style.display=soldOut?'block':'none';
+  $('mAddBtn').disabled=soldOut;
+  $('mSizes').innerHTML=SHOE_SIZES.map(s=>`<button class="s-size-chip${s==='38'?' active':''}" onclick="pickSize(this,'${s}')">${s}</button>`).join('');
+  $('modalBg').classList.add('open');
+}
+function pickSize(btn,s){document.querySelectorAll('.s-size-chip').forEach(b=>b.classList.remove('active'));btn.classList.add('active');modalSize=s;}
+function addFromModal(){
+  if(!modalProduct||modalProduct.idadi<=0)return;
+  const ex=cart.find(c=>c.id===modalProduct.id);
+  if(ex){if(ex.qty<modalProduct.idadi){ex.qty++;ex.size=modalSize;}else{toast('Hakuna stock zaidi');return;}}
+  else cart.push({id:modalProduct.id,name:modalProduct.jina,price:modalProduct.bei_kuuzia,img:modalProduct.img,qty:1,size:modalSize,maxQty:modalProduct.idadi});
+  updateCartUI();renderGrid(curFilter);closeModal();toast(modalProduct.jina+' added to cart');
+}
+function closeBgModal(e){if(e.target===$('modalBg'))closeModal();}
+function closeModal(){$('modalBg').classList.remove('open');}
+function toggleMobile(){$('mobileMenu').classList.toggle('open');}
+function closeMobile(){$('mobileMenu').classList.remove('open');}
+function initObserver(){
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08});
+  document.querySelectorAll('.fade-in:not(.visible)').forEach(el=>obs.observe(el));
+}
+
+// ════════════════════════════════════════════════════════════════
+// AUTH
+// ════════════════════════════════════════════════════════════════
+function openLogin(){$('loginOverlay').classList.add('open');$('pwInput').value='';$('loginErr').textContent='';setTimeout(()=>$('pwInput').focus(),100);}
+function closeLogin(){$('loginOverlay').classList.remove('open');}
+function doLogin(){
+  if($('pwInput').value===PASS){closeLogin();enterAdmin();}
+  else{$('loginErr').textContent='Incorrect password.';$('pwInput').value='';}
+}
+function enterAdmin(){
+  isAdmin=true;$('adminApp').classList.add('open');
+  document.body.style.overflow='hidden';
+  if(pollInterval)clearInterval(pollInterval);
+  wekaTariheLeo();setDefaultDates();loadAll();
+  pollInterval=setInterval(loadAll,8000);
+}
+function doLogout(){
+  isAdmin=false;$('adminApp').classList.remove('open');
+  document.body.style.overflow='';
+  if(pollInterval)clearInterval(pollInterval);
+  pollStore();pollInterval=setInterval(pollStore,4000);
+}
+
+// ════════════════════════════════════════════════════════════════
+// ADMIN — DATA
+// ════════════════════════════════════════════════════════════════
+async function loadAll(){
+  try{
+    const [b,m,s,g,w]=await Promise.all([
+      DB.get('bidhaa','order=jina.asc'),
+      DB.get('manunuzi','order=tarehe.desc,created_at.desc'),
+      DB.get('mauzo','order=tarehe.desc,created_at.desc'),
+      DB.get('gharama','order=tarehe.desc,created_at.desc'),
+      DB.get('wateja','order=created_at.desc')
+    ]);
+    if(Array.isArray(b))allBidhaa=b;
+    if(Array.isArray(m))allManunuzi=m;
+    if(Array.isArray(s))allMauzo=s;
+    if(Array.isArray(g))allGharama=g;
+    if(Array.isArray(w))allWateja=w;
+    renderAll();jaziChaguoBidhaa();
+  }catch(e){console.error('Load error:',e);}
+}
+
+function fungaAdminModal(){document.querySelectorAll('#adminApp .modal-overlay').forEach(m=>m.classList.remove('open'));maalipoMteja=null;deleteAction=null;rejectAction=null;}
+function showErr(id,show){const el=$(id);if(el)el.classList.toggle('show',show);}
+function arifu(id,msg,type){const el=$(id);if(!el)return;el.textContent=msg;el.className='notify '+type+' show';setTimeout(()=>el.classList.remove('show'),3500);}
+function safuTupu(cols,msg){return`<tr><td colspan="${cols}" class="empty-state"><div class="icon">📭</div>${msg}</td></tr>`;}
+function setDefaultDates(){const today=leoISO();['t-tarehe','m-tarehe','g-tarehe'].forEach(id=>{const el=$(id);if(el)el.value=today;});}
+function wekaTariheLeo(){$('ks-tarehe').value=leoISO();renderKilaSiku();}
+
+// ─── NAV ────────────────────────────────────────────────────
+function switchPage(page){
+  document.querySelectorAll('#adminApp .nav-btn,.a-tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+  document.querySelectorAll('#adminApp .page').forEach(p=>p.classList.toggle('active',p.id===page));
+}
+document.querySelectorAll('#adminApp .nav-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{switchPage(btn.dataset.page);if(window.innerWidth<=960){$('sidebar').classList.remove('open');$('sidebarBackdrop').classList.remove('open');}});
+});
+document.querySelectorAll('.a-tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>switchPage(btn.dataset.page));
+});
+function toggleSidebar(){const open=$('sidebar').classList.toggle('open');$('sidebarBackdrop').classList.toggle('open',open);}
+
+// ─── HESABU ─────────────────────────────────────────────────
+function confirmedMauzo(){return allMauzo.filter(s=>s.hali_order!=='Inasubiri'&&s.hali_order!=='Imekataliwa');}
+function hesabu(kuanzia,hadi){
+  const ch=d=>(!kuanzia||d>=kuanzia)&&(!hadi||d<=hadi);
+  const mf=confirmedMauzo().filter(s=>ch(s.tarehe));
+  const pf=allManunuzi.filter(p=>ch(p.tarehe));
+  const ef=allGharama.filter(e=>ch(e.tarehe));
+  const jumla_mauzo=mf.reduce((a,b)=>a+b.jumla,0);
+  const jumla_manunuzi=pf.reduce((a,b)=>a+b.jumla,0);
+  const taslimu=mf.filter(s=>s.aina==='Taslimu').reduce((a,b)=>a+b.jumla,0);
+  const mkopo=mf.filter(s=>s.aina==='Mkopo').reduce((a,b)=>a+b.jumla,0);
+  const jumla_gharama=ef.reduce((a,b)=>a+b.kiasi,0);
+  const madeni=allWateja.reduce((a,b)=>a+b.bakaa,0);
+  const stock=allBidhaa.reduce((a,b)=>a+b.idadi,0);
+  const gharama_cogs=mf.reduce((a,b)=>a+(b.bei_kununulia||0)*b.idadi,0);
+  const faida_jumla=jumla_mauzo-gharama_cogs;
+  const faida_halisi=faida_jumla-jumla_gharama;
+  const malipo=allWateja.reduce((a,b)=>a+(b.kilicholipwa||0),0);
+  const hela_cash=taslimu+malipo-jumla_gharama-jumla_manunuzi;
+  return{jumla_mauzo,jumla_manunuzi,taslimu,mkopo,jumla_gharama,madeni,stock,faida_jumla,faida_halisi,hela_cash};
+}
+
+// ─── FORMS ──────────────────────────────────────────────────
+function togglaMkopo(){const v=$('m-aina').value==='Mkopo';$('wrap-kiasi').style.display=v?'block':'none';$('wrap-tarehe-mkopo').style.display=v?'block':'none';}
+function jaziChaguoBidhaa(){
+  const sel=$('m-bidhaa');if(!sel)return;
+  const prev=sel.value;sel.innerHTML='';
+  if(!allBidhaa.length){sel.innerHTML='<option>Hakuna bidhaa</option>';return;}
+  allBidhaa.forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=`${p.jina} (${p.idadi} pairs) — ${pesa(p.bei_kuuzia)}`;sel.appendChild(o);});
+  if(prev)sel.value=prev;
+}
+
+async function ongezaUununuzi(){
+  const tarehe=$('t-tarehe').value,jina=$('t-jina').value.trim(),aina=$('t-aina').value;
+  const idadi=parseInt($('t-idadi').value),bei_k=parseInt($('t-bei-kununulia').value),bei_u=parseInt($('t-bei-kuuzia').value)||0;
+  const msambazaji=$('t-msambazaji').value.trim()||'Haijasemwa';
+  let ok=true;
+  if(!jina){showErr('err-t-jina',true);ok=false;}else showErr('err-t-jina',false);
+  if(!idadi||idadi<1){showErr('err-t-idadi',true);ok=false;}else showErr('err-t-idadi',false);
+  if(!bei_k||bei_k<1){showErr('err-t-bei',true);ok=false;}else showErr('err-t-bei',false);
+  if(!ok)return;
+  try{
+    await DB.post('manunuzi',{tarehe,jina,aina,idadi,bei_kununulia:bei_k,jumla:idadi*bei_k,msambazaji});
+    const existing=allBidhaa.find(p=>p.jina.toLowerCase()===jina.toLowerCase());
+    if(existing)await DB.patch('bidhaa',`id=eq.${existing.id}`,{idadi:existing.idadi+idadi,bei_kununulia:bei_k,...(bei_u?{bei_kuuzia:bei_u}:{})});
+    else await DB.post('bidhaa',{jina,aina,bei_kununulia:bei_k,bei_kuuzia:bei_u||bei_k,idadi,kiwango_chini:2,onyesha_dukani:false});
+    safishaManunuzi();arifu('notifyManunuzi',`✅ Ununuzi wa "${jina}" umehifadhiwa!`,'success');await loadAll();
+  }catch(e){arifu('notifyManunuzi','❌ Hitilafu: '+e.message,'error');}
+}
+
+async function ongezaUuzaji(){
+  const tarehe=$('m-tarehe').value,mteja=$('m-mteja').value.trim()||'Mteja wa Kawaida';
+  const bid=$('m-bidhaa').value,idadi=parseInt($('m-idadi').value);
+  const aina=$('m-aina').value,kiasi_lipwa=parseInt($('m-kiasi').value||0);
+  const tarehe_mkopo=$('m-tarehe-mkopo').value;
+  if(!idadi||idadi<1){showErr('err-m-idadi',true);return;}showErr('err-m-idadi',false);
+  const b=allBidhaa.find(p=>p.id===bid);
+  if(!b){arifu('notifyMauzo','❌ Chagua bidhaa kwanza','error');return;}
+  if(idadi>b.idadi){arifu('notifyMauzo',`❌ Hifadhi haitoshi! ${b.idadi} tu zilizobaki.`,'error');return;}
+  const jumla=idadi*b.bei_kuuzia;
+  const kilicholipwa=aina==='Taslimu'?jumla:Math.min(kiasi_lipwa,jumla);
+  const bakaa=jumla-kilicholipwa;
+  try{
+    await DB.post('mauzo',{tarehe,mteja,jina:b.jina,aina_bidhaa:b.aina,idadi,bei_kuuzia:b.bei_kuuzia,bei_kununulia:b.bei_kununulia,jumla,aina,kilicholipwa,bakaa,chanzo:'Mkono',hali_order:'Imethibitishwa',bidhaa_id:b.id});
+    await DB.patch('bidhaa',`id=eq.${b.id}`,{idadi:b.idadi-idadi});
+    if(aina==='Mkopo'&&mteja!=='Mteja wa Kawaida'){
+      const c=allWateja.find(x=>x.jina.toLowerCase()===mteja.toLowerCase());
+      if(c)await DB.patch('wateja',`id=eq.${c.id}`,{deni_lote:c.deni_lote+jumla,kilicholipwa:c.kilicholipwa+kilicholipwa,bakaa:c.bakaa+bakaa,tarehe_mwisho:tarehe_mkopo||c.tarehe_mwisho,hali:c.bakaa+bakaa===0?'Amelipa Kamili':c.kilicholipwa+kilicholipwa>0?'Amelipa Sehemu':'Hajalipa'});
+      else await DB.post('wateja',{jina:mteja,simu:'Haijasemwa',deni_lote:jumla,kilicholipwa,bakaa,tarehe_mwisho:tarehe_mkopo||null,hali:bakaa===0?'Amelipa Kamili':kilicholipwa>0?'Amelipa Sehemu':'Hajalipa'});
+    }
+    safishaMauzo();arifu('notifyMauzo',`✅ Uuzaji wa "${b.jina}" umehifadhiwa!`,'success');await loadAll();
+  }catch(e){arifu('notifyMauzo','❌ Hitilafu: '+e.message,'error');}
+}
+
+async function ongezaGharama(){
+  const tarehe=$('g-tarehe').value,aina=$('g-aina').value.trim(),kiasi=parseInt($('g-kiasi').value),maelezo=$('g-maelezo').value.trim();
+  let ok=true;
+  if(!aina){showErr('err-g-aina',true);ok=false;}else showErr('err-g-aina',false);
+  if(!kiasi||kiasi<1){showErr('err-g-kiasi',true);ok=false;}else showErr('err-g-kiasi',false);
+  if(!ok)return;
+  try{await DB.post('gharama',{tarehe,aina,kiasi,maelezo});safishaGharama();arifu('notifyGharama','✅ Matumizi yamehifadhiwa!','success');await loadAll();}
+  catch(e){arifu('notifyGharama','❌ Hitilafu: '+e.message,'error');}
+}
+
+function funguaModalFuta(fn){deleteAction=fn;$('modalFuta').classList.add('open');$('btn-thibitisha-futa').onclick=async()=>{await fn();fungaAdminModal()};}
+async function futaManunuzi(id){funguaModalFuta(async()=>{const p=allManunuzi.find(x=>x.id===id);if(p){const b=allBidhaa.find(x=>x.jina.toLowerCase()===p.jina.toLowerCase());if(b)await DB.patch('bidhaa',`id=eq.${b.id}`,{idadi:Math.max(0,b.idadi-p.idadi)});}await DB.del('manunuzi',`id=eq.${id}`);toast('Rekodi imefutwa');await loadAll();});}
+async function futaMauzo(id){funguaModalFuta(async()=>{const s=allMauzo.find(x=>x.id===id);if(s&&s.hali_order!=='Imekataliwa'&&s.hali_order!=='Inasubiri'){const b=allBidhaa.find(x=>x.jina===s.jina);if(b)await DB.patch('bidhaa',`id=eq.${b.id}`,{idadi:b.idadi+s.idadi});}await DB.del('mauzo',`id=eq.${id}`);toast('Rekodi imefutwa');await loadAll();});}
+async function futaGharama(id){funguaModalFuta(async()=>{await DB.del('gharama',`id=eq.${id}`);toast('Rekodi imefutwa');await loadAll();});}
+
+function funguaMalipo(id){
+  const c=allWateja.find(x=>x.id===id);if(!c)return;
+  maalipoMteja=id;
+  $('mp-jina').textContent=c.jina;$('mp-deni-lote').textContent=pesa(c.deni_lote);$('mp-bakaa').textContent=pesa(c.bakaa);
+  $('mp-kiasi').value='';$('mp-maelezo').value='';$('mp-tarehe').value=leoISO();
+  $('mp-notify').style.display='none';$('modalMalipo').classList.add('open');
+}
+async function thibitishaMalipo(){
+  const kiasi=parseFloat($('mp-kiasi').value),tarehe=$('mp-tarehe').value,maelezo=$('mp-maelezo').value.trim();
+  const mpN=$('mp-notify');
+  if(!kiasi||kiasi<=0){mpN.style.display='block';mpN.style.background='var(--a-red-light)';mpN.style.color='var(--a-red)';mpN.textContent='❌ Weka kiasi sahihi.';return;}
+  const c=allWateja.find(x=>x.id===maalipoMteja);if(!c)return;
+  const halisi=Math.min(kiasi,c.bakaa);
+  const nLipwa=c.kilicholipwa+halisi,nBakaa=c.bakaa-halisi;
+  await DB.patch('wateja',`id=eq.${c.id}`,{kilicholipwa:nLipwa,bakaa:nBakaa,hali:nBakaa<=0?'Amelipa Kamili':nLipwa>0?'Amelipa Sehemu':'Hajalipa'});
+  let hist=[];try{hist=JSON.parse(localStorage.getItem('eldorado_malipo')||'[]');}catch(e){}
+  hist.unshift({id:Date.now(),mteja_id:c.id,mteja:c.jina,kiasi:halisi,tarehe,maelezo:maelezo||'Malipo ya mkopo',bakaa_baada:nBakaa});
+  localStorage.setItem('eldorado_malipo',JSON.stringify(hist));
+  fungaAdminModal();toast(`✅ Malipo ya ${pesa(halisi)} yamehifadhiwa!`);await loadAll();
+}
+
+function safishaManunuzi(){['t-jina','t-idadi','t-bei-kununulia','t-bei-kuuzia','t-msambazaji'].forEach(id=>{const el=$(id);if(el)el.value='';});}
+function safishaMauzo(){['m-mteja','m-idadi','m-kiasi','m-tarehe-mkopo'].forEach(id=>{const el=$(id);if(el)el.value='';});$('m-aina').value='Taslimu';togglaMkopo();}
+function safishaGharama(){['g-aina','g-kiasi','g-maelezo'].forEach(id=>{const el=$(id);if(el)el.value='';});}
+
+// ─── MAAGIZO ────────────────────────────────────────────────
+function pendingOrders(){return allMauzo.filter(s=>s.hali_order==='Inasubiri');}
+function renderMaagizo(){
+  const pending=pendingOrders();
+  [$('pendingPill'),$('mTopPill')].forEach(el=>{if(!el)return;el.style.display=pending.length?'inline-flex':'none';el.textContent=pending.length;});
+  const alertBox=$('alertOrders');
+  if(pending.length){alertBox.style.display='block';$('txtOrders').textContent=`Maagizo ${pending.length} yanayosubiri uthibitisho.`;}
+  else alertBox.style.display='none';
+  $('pendingOrdersList').innerHTML=pending.length?pending.map(o=>`
+    <div class="order-card pending">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+        <div>
+          <strong>${o.jina}</strong> ${o.size?`(Size EU: ${o.size})`:''}<br>
+          <span style="font-size:12px;color:var(--a-muted)">Pairs: ${o.idadi} · ${pesa(o.jumla)} · ${o.tarehe}</span><br>
+          <span style="font-size:12px;color:var(--a-muted)">📞 ${o.simu_mteja||'Haijasemwa'}</span>
+        </div>
+        <div style="display:flex;gap:6px;align-items:flex-start;">
+          <button class="btn sm success" onclick="thibitishaOrder('${o.id}')">✓ Thibitisha</button>
+          <button class="btn sm danger" onclick="funguaRejectOrder('${o.id}')">✕ Kataa</button>
+        </div>
+      </div>
+    </div>`).join(''):'<div class="empty-state"><div class="icon">📭</div>Hakuna maagizo yanayosubiri.</div>';
+  const hist=allMauzo.filter(s=>s.chanzo==='Duka');
+  $('tbody-order-history').innerHTML=hist.length?hist.map(o=>{
+    const cls=o.hali_order==='Imethibitishwa'?'pill-green':o.hali_order==='Imekataliwa'?'pill-red':'pill-amber';
+    return`<tr><td>${o.tarehe}</td><td>${o.mteja}</td><td>${o.simu_mteja||'—'}</td><td>${o.jina}</td><td>${o.size||'—'}</td><td>${o.idadi}</td><td>${pesa(o.jumla)}</td><td><span class="pill ${cls}">${o.hali_order}</span></td></tr>`;
+  }).join(''):safuTupu(8,'Bado hakuna maagizo kutoka dukani.');
+}
+async function thibitishaOrder(id){
+  const o=allMauzo.find(x=>x.id===id);if(!o)return;
+  const b=allBidhaa.find(x=>x.id===o.bidhaa_id)||allBidhaa.find(x=>x.jina===o.jina);
+  if(!b){toast('❌ Bidhaa haipo');return;}
+  if(o.idadi>b.idadi){toast(`❌ Hifadhi haitoshi! ${b.idadi} tu zilizobaki.`);return;}
+  try{
+    await DB.patch('bidhaa',`id=eq.${b.id}`,{idadi:b.idadi-o.idadi});
+    await DB.patch('mauzo',`id=eq.${o.id}`,{hali_order:'Imethibitishwa'});
+    toast(`✅ Agizo la "${o.jina}" limethibitishwa.`);await loadAll();
+  }catch(e){toast('❌ Hitilafu: '+e.message);}
+}
+function funguaRejectOrder(id){
+  rejectAction=id;$('reject-reason').value='';$('modalRejectOrder').classList.add('open');
+  $('btn-thibitisha-reject').onclick=async()=>{await DB.patch('mauzo',`id=eq.${id}`,{hali_order:'Imekataliwa',bakaa:0});toast('Agizo limekataliwa');fungaAdminModal();await loadAll();};
+}
+
+// ─── PHOTO UPLOAD ───────────────────────────────────────────
+function uploadPhoto(file){
+  return new Promise((resolve,reject)=>{
+    const fd=new FormData();fd.append('file',file);fd.append('upload_preset',PRESET);fd.append('cloud_name',CLD);
+    const xhr=new XMLHttpRequest();xhr.open('POST',`https://api.cloudinary.com/v1_1/${CLD}/image/upload`,true);xhr.timeout=60000;
+    xhr.onload=()=>{try{const d=JSON.parse(xhr.responseText);if(d.secure_url)resolve(d.secure_url);else reject(new Error(d.error?.message||'Upload failed'));}catch(e){reject(new Error('Invalid response'));}};
+    xhr.onerror=()=>reject(new Error('Network error'));xhr.ontimeout=()=>reject(new Error('Upload timed out'));xhr.send(fd);
+  });
+}
+function onFilePick(input){uploadFile=input.files[0]||null;renderPreviews();}
+function renderPreviews(){if(!uploadFile){$('previews').innerHTML='';return;}const url=URL.createObjectURL(uploadFile);$('previews').innerHTML=`<div class="preview-item"><img src="${url}"/><button class="preview-rm" onclick="removePreview()">✕</button></div>`;}
+function removePreview(){uploadFile=null;$('fileInput').value='';renderPreviews();}
+const ub=$('uploadBox');
+ub.addEventListener('dragover',e=>{e.preventDefault();ub.classList.add('drag');});
+ub.addEventListener('dragleave',()=>ub.classList.remove('drag'));
+ub.addEventListener('drop',e=>{e.preventDefault();ub.classList.remove('drag');const f=Array.from(e.dataTransfer.files).find(f=>f.type.startsWith('image/'));if(f){uploadFile=f;renderPreviews();}});
+
+async function saveProductWithPhoto(){
+  const jina=$('p-jina').value.trim(),bei=$('p-bei').value.trim();
+  const beiGharama=parseInt($('p-bei-gharama').value)||0,idadi=parseInt($('p-idadi').value)||1;
+  const category=$('p-kategoria').value,badge=$('p-badge').value.trim();
+  if(!jina){toast('Weka jina la bidhaa');return;}
+  if(!bei){toast('Weka bei ya kuuzia');return;}
+  if(!uploadFile){toast('Pakia picha ya viatu');return;}
+  const btn=$('p-save-btn'),status=$('p-status');
+  btn.disabled=true;status.textContent='Inapakia picha...';
+  try{
+    const img=await uploadPhoto(uploadFile);status.textContent='Inahifadhi...';
+    const bei_u=parseInt(bei),bei_k=beiGharama||bei_u;
+    await DB.post('bidhaa',{jina,aina:category,bei_kununulia:bei_k,bei_kuuzia:bei_u,idadi,kiwango_chini:2,img,category,badge,onyesha_dukani:true});
+    await DB.post('manunuzi',{tarehe:leoISO(),jina,aina:category,idadi,bei_kununulia:bei_k,jumla:bei_k*idadi,msambazaji:'Stock ya Awali'});
+    status.textContent='';toast(`"${jina}" imehifadhiwa na inaonekana Dukani!`);
+    ['p-jina','p-bei','p-bei-gharama','p-badge'].forEach(id=>$(id).value='');
+    $('p-idadi').value='1';$('fileInput').value='';uploadFile=null;renderPreviews();await loadAll();
+  }catch(e){status.textContent='Hitilafu: '+e.message;console.error(e);}
+  btn.disabled=false;
+}
+async function toggleDukani(id){
+  const p=allBidhaa.find(x=>x.id===id);if(!p)return;
+  if(!p.onyesha_dukani&&!p.img){toast('Ongeza picha kwanza');return;}
+  await DB.patch('bidhaa',`id=eq.${id}`,{onyesha_dukani:!p.onyesha_dukani});
+  toast(p.onyesha_dukani?'Imeondolewa Dukani':'Inaonekana Dukani sasa');await loadAll();
+}
+
+// ─── RENDER FUNCTIONS ────────────────────────────────────────
+function renderDashibodi(){
+  const t=hesabu();
+  $('cardManunuzi').textContent=pesa(t.jumla_manunuzi);$('cardMauzo').textContent=pesa(t.jumla_mauzo);
+  $('cardFaida').textContent=pesa(t.faida_halisi);$('cardMadeni').textContent=pesa(t.madeni);
+  $('cardCash').textContent=pesa(Math.max(0,t.hela_cash));
+  $('sumTaskimu').textContent=pesa(t.taslimu);$('sumMkopo').textContent=pesa(t.mkopo);
+  $('sumGharama').textContent=pesa(t.jumla_gharama);$('sumStock').textContent=t.stock;
+  const ndogo=allBidhaa.filter(p=>p.idadi>0&&p.idadi<=p.kiwango_chini).map(p=>p.jina);
+  const zimekwisha=allBidhaa.filter(p=>p.idadi===0).map(p=>p.jina);
+  let h=[];if(zimekwisha.length)h.push('Zimekwisha: '+zimekwisha.join(', '));if(ndogo.length)h.push('Ndogo: '+ndogo.join(', '));
+  $('txtHifadhi').textContent=h.length?h.join(' | '):'Viwango vyote ni vizuri ✓';
+  const leo=new Date();leo.setHours(0,0,0,0);
+  const zp=allWateja.filter(c=>c.bakaa>0&&c.tarehe_mwisho&&new Date(c.tarehe_mwisho)<leo).map(c=>c.jina);
+  $('txtMadeni').textContent=zp.length?zp.join(', '):'Hakuna madeni yaliyokwisha muda ✓';
+  const fb=$('faidaBadge'),th=$('txtHali'),ab=$('alertHali');
+  if(t.faida_halisi>0){fb.className='c-badge badge-green';fb.textContent='Faida ✓';th.textContent='Faida ipo — biashara inakua vizuri!';ab.className='alert-box success';}
+  else if(t.faida_halisi<0){fb.className='c-badge badge-red';fb.textContent='Hasara ⚠';th.textContent='Kuna hasara — angalia gharama.';ab.className='alert-box danger';}
+  else{fb.className='c-badge badge-gray';fb.textContent='Usawa';th.textContent='Mauzo yanafunika gharama.';ab.className='alert-box';}
+}
+function renderManunuzi(){
+  $('tbody-manunuzi').innerHTML=allManunuzi.length?allManunuzi.map(p=>`<tr><td>${p.tarehe}</td><td><strong>${p.jina}</strong></td><td>${p.aina}</td><td>${p.idadi}</td><td>${pesa(p.bei_kununulia)}</td><td><strong>${pesa(p.jumla)}</strong></td><td>${p.msambazaji}</td><td><button class="btn sm danger" onclick="futaManunuzi('${p.id}')">Futa</button></td></tr>`).join(''):safuTupu(8,'Bado hakuna manunuzi.');
+}
+function renderMauzo(){
+  const tafuta=($('search-mauzo').value||'').toLowerCase(),filterV=$('filter-mauzo').value;
+  const list=allMauzo.filter(s=>`${s.mteja} ${s.jina}`.toLowerCase().includes(tafuta)&&(filterV==='zote'||s.aina===filterV));
+  $('tbody-mauzo').innerHTML=list.length?list.map(s=>{
+    const ordCls=s.hali_order==='Inasubiri'?'pill-amber':s.hali_order==='Imekataliwa'?'pill-red':'pill-gray';
+    return`<tr><td>${s.tarehe}</td><td>${s.mteja}</td><td>${s.jina}</td><td><span class="pill ${s.aina==='Taslimu'?'pill-green':'pill-amber'}">${s.aina}</span></td><td>${s.idadi}</td><td><strong>${pesa(s.jumla)}</strong></td><td>${pesa(s.kilicholipwa)}</td><td>${pesa(s.bakaa)}</td><td><span class="pill ${s.bakaa===0?'pill-green':s.kilicholipwa>0?'pill-amber':'pill-red'}">${s.bakaa===0?'Amelipa':s.kilicholipwa>0?'Sehemu':'Hajalipa'}</span></td><td><span class="pill ${ordCls}">${s.chanzo||'Mkono'}${s.hali_order==='Inasubiri'?' · Subiri':''}</span></td><td><button class="btn sm danger" onclick="futaMauzo('${s.id}')">Futa</button></td></tr>`;
+  }).join(''):safuTupu(11,'Bado hakuna mauzo.');
+}
+function renderGharama(){
+  $('tbody-gharama').innerHTML=allGharama.length?allGharama.map(e=>`<tr><td>${e.tarehe}</td><td><strong>${e.aina}</strong></td><td>${pesa(e.kiasi)}</td><td>${e.maelezo||'—'}</td><td><button class="btn sm danger" onclick="futaGharama('${e.id}')">Futa</button></td></tr>`).join(''):safuTupu(5,'Bado hakuna matumizi.');
+}
+function renderStock(){
+  const tafuta=($('search-stock').value||'').toLowerCase();
+  const list=allBidhaa.filter(p=>`${p.jina} ${p.aina}`.toLowerCase().includes(tafuta));
+  const blank="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect fill='%23FAF3EC' width='40' height='40'/%3E%3C/svg%3E";
+  $('tbody-stock').innerHTML=list.length?list.map(p=>{
+    const fp=p.bei_kuuzia>0?Math.round(((p.bei_kuuzia-p.bei_kununulia)/p.bei_kuuzia)*100):0;
+    const badge=p.idadi===0?'<span class="pill pill-red">Imekwisha</span>':p.idadi<=p.kiwango_chini?'<span class="pill pill-amber">Ndogo</span>':'<span class="pill pill-green">Ipo ✓</span>';
+    return`<tr><td><img src="${p.img||blank}" style="width:34px;height:42px;object-fit:cover;border-radius:4px"/></td><td><strong>${p.jina}</strong></td><td>${p.aina}</td><td>${pesa(p.bei_kununulia)}</td><td>${pesa(p.bei_kuuzia)}</td><td><span class="pill ${fp>=30?'pill-green':fp>=15?'pill-amber':'pill-red'}">${fp}%</span></td><td><strong>${p.idadi}</strong></td><td>${badge}</td><td><div class="toggle-wrap"><div class="toggle${p.onyesha_dukani?' on':''}" onclick="toggleDukani('${p.id}')"></div></div></td></tr>`;
+  }).join(''):safuTupu(9,'Hakuna bidhaa.');
+}
+function renderWateja(){
+  $('tbody-wateja').innerHTML=allWateja.length?allWateja.map(c=>{
+    const cls=c.hali==='Hajalipa'?'pill-red':c.hali==='Amelipa Sehemu'?'pill-amber':'pill-green';
+    const prog=c.deni_lote>0?Math.round((c.kilicholipwa/c.deni_lote)*100):0;
+    return`<tr><td><strong>${c.jina}</strong><br><div style="margin-top:4px;height:4px;background:var(--a-line);border-radius:2px;width:80px"><div style="height:100%;width:${prog}%;background:${prog===100?'var(--a-green)':'var(--a-rg)'};border-radius:2px"></div></div><span style="font-size:10px;color:var(--a-muted)">${prog}% imelipwa</span></td><td>${c.simu}</td><td>${pesa(c.deni_lote)}</td><td style="color:var(--a-green);font-weight:600">${pesa(c.kilicholipwa)}</td><td style="color:${c.bakaa>0?'var(--a-red)':'var(--a-green)'};font-weight:700">${pesa(c.bakaa)}</td><td>${c.tarehe_mwisho||'—'}</td><td><span class="pill ${cls}">${c.hali}</span></td><td style="display:flex;gap:4px;flex-wrap:wrap;">${c.bakaa>0?`<button class="btn sm gold" onclick="funguaMalipo('${c.id}')">💳 Lipa</button>`:''}<button class="btn sm secondary" onclick="oneshaHistoriaMalipo('${c.id}','${c.jina.replace(/'/g,"\\'")}')">📋</button></td></tr>`;
+  }).join(''):safuTupu(8,'Hakuna wateja wa mkopo.');
+}
+function oneshaHistoriaMalipo(mteja_id,jina){
+  $('malipo-history-jina').textContent=jina;$('malipo-history-section').style.display='block';
+  let hist=[];try{hist=JSON.parse(localStorage.getItem('eldorado_malipo')||'[]');}catch(e){}
+  const mine=hist.filter(h=>h.mteja_id===mteja_id);
+  $('tbody-malipo-history').innerHTML=mine.length?mine.map(h=>`<tr><td>${h.tarehe}</td><td style="color:var(--a-green);font-weight:700">${pesa(h.kiasi)}</td><td style="color:${h.bakaa_baada>0?'var(--a-red)':'var(--a-green)'};font-weight:600">${pesa(h.bakaa_baada)}</td><td>${h.maelezo||'—'}</td></tr>`).join(''):`<tr><td colspan="4" class="empty-state">Bado hakuna historia ya malipo.</td></tr>`;
+  $('malipo-history-section').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function renderKilaSiku(){
+  const sel=$('ks-tarehe').value;if(!sel)return;
+  const mp=allManunuzi.filter(p=>p.tarehe===sel),ms=confirmedMauzo().filter(s=>s.tarehe===sel);
+  const taslimu=ms.filter(s=>s.aina==='Taslimu').reduce((a,b)=>a+b.jumla,0);
+  const mkopo=ms.filter(s=>s.aina==='Mkopo').reduce((a,b)=>a+b.jumla,0);
+  const jumla_mauzo=ms.reduce((a,b)=>a+b.jumla,0),jumla_manunuzi=mp.reduce((a,b)=>a+b.jumla,0);
+  const net=jumla_mauzo-jumla_manunuzi;
+  $('ks-manunuzi').textContent=pesa(jumla_manunuzi);$('ks-taslimu').textContent=pesa(taslimu);$('ks-mkopo').textContent=pesa(mkopo);$('ks-hali').textContent=pesa(net);
+  $('ks-n-manunuzi').textContent=mp.length;$('ks-n-mauzo').textContent=ms.length;
+  $('ks-bakaa').textContent=pesa(ms.filter(s=>s.aina==='Mkopo').reduce((a,b)=>a+b.bakaa,0));
+  $('ks-jumla-mauzo').textContent=pesa(jumla_mauzo);
+  $('ks-maelezo').textContent=mp.length===0&&ms.length===0?'Hakuna shughuli tarehe hii.':`Manunuzi ${mp.length}, Mauzo ${ms.length}.`;
+  const badge=$('ks-hali-badge'),alert=$('ks-alert'),txt=$('ks-alert-txt');
+  if(net>0){badge.className='c-badge badge-green';badge.textContent='Nzuri ✓';txt.textContent='Siku nzuri!';alert.className='alert-box success';}
+  else if(net<0){badge.className='c-badge badge-amber';badge.textContent='Manunuzi Zaidi';txt.textContent='Manunuzi yamezidi mauzo.';alert.className='alert-box';}
+  else{badge.className='c-badge badge-gray';badge.textContent='Usawa';txt.textContent='Mauzo na manunuzi vimesawazika.';alert.className='alert-box';}
+  $('ks-tbody-m').innerHTML=mp.length?mp.map(p=>`<tr><td>${p.tarehe}</td><td>${p.jina}</td><td>${p.aina}</td><td>${p.idadi}</td><td>${pesa(p.bei_kununulia)}</td><td>${pesa(p.jumla)}</td><td>${p.msambazaji}</td></tr>`).join(''):safuTupu(7,'Hakuna manunuzi.');
+  $('ks-tbody-s').innerHTML=ms.length?ms.map(s=>`<tr><td>${s.tarehe}</td><td>${s.mteja}</td><td>${s.jina}</td><td><span class="pill ${s.aina==='Taslimu'?'pill-green':'pill-amber'}">${s.aina}</span></td><td>${s.idadi}</td><td>${pesa(s.jumla)}</td><td>${pesa(s.kilicholipwa)}</td><td>${pesa(s.bakaa)}</td></tr>`).join(''):safuTupu(8,'Hakuna mauzo.');
+}
+function renderRipoti(){
+  const k=$('r-kuanzia').value,h=$('r-hadi').value,t=hesabu(k,h);
+  $('rep-manunuzi').textContent=pesa(t.jumla_manunuzi);$('rep-mauzo').textContent=pesa(t.jumla_mauzo);
+  $('rep-gharama').textContent=pesa(t.jumla_gharama);$('rep-faida-j').textContent=pesa(t.faida_jumla);
+  $('rep-faida-h').textContent=pesa(t.faida_halisi);$('rep-madeni').textContent=pesa(t.madeni);
+}
+function futhaChujo(){$('r-kuanzia').value='';$('r-hadi').value='';renderRipoti();}
+function hamishaCsv(){
+  const k=$('r-kuanzia').value,h=$('r-hadi').value,ch=d=>(!k||d>=k)&&(!h||d<=h);
+  let csv='Aina,Tarehe,Maelezo,Kiasi\n';
+  allManunuzi.filter(p=>ch(p.tarehe)).forEach(p=>csv+=`Ununuzi,${p.tarehe},"${p.jina} x${p.idadi}",${p.jumla}\n`);
+  confirmedMauzo().filter(s=>ch(s.tarehe)).forEach(s=>csv+=`Uuzaji,${s.tarehe},"${s.jina} x${s.idadi} kwa ${s.mteja}",${s.jumla}\n`);
+  allGharama.filter(e=>ch(e.tarehe)).forEach(e=>csv+=`Gharama,${e.tarehe},"${e.aina}: ${e.maelezo}",${e.kiasi}\n`);
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);a.download=`eldorado-ripoti-${leoISO()}.csv`;a.click();
+}
+function renderAll(){renderDashibodi();renderMaagizo();renderManunuzi();renderMauzo();renderGharama();renderStock();renderWateja();renderRipoti();renderKilaSiku();}
+
+// ─── INIT ───────────────────────────────────────────────────
+initStore();
+</script>
+</body>
+</html>
