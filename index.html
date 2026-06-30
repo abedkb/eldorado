@@ -517,10 +517,10 @@ footer b{color:var(--rg-dark);font-weight:400;}
   </div>
   <div class="a-topnav-tabs" id="aTopnavTabs">
     <button class="a-tab-btn active" data-page="dashibodi"><span class="t-icon">📊</span><span class="t-label">Dashboard</span></button>
-    <button class="a-tab-btn" data-page="maagizo"><span class="t-icon">🛎</span><span class="t-label">Maagizo</span><span class="t-pill" id="mTopPill" style="display:none">0</span></button>
+    <button class="a-tab-btn" data-page="maagizo"><span class="t-icon">🛎</span><span class="t-label">Orders</span><span class="t-pill" id="mTopPill" style="display:none">0</span></button>
     <button class="a-tab-btn" data-page="manunuzi"><span class="t-icon">📦</span><span class="t-label">Manunuzi</span></button>
     <button class="a-tab-btn" data-page="mauzo"><span class="t-icon">🛍</span><span class="t-label">Mauzo</span></button>
-    <button class="a-tab-btn" data-page="gharama"><span class="t-icon">💸</span><span class="t-label">Matumizi</span></button>
+    <button class="a-tab-btn" data-page="gharama"><span class="t-icon">💸</span><span class="t-label">Expenses</span></button>
     <button class="a-tab-btn" data-page="hifadhi"><span class="t-icon">🗃</span><span class="t-label">Stock</span></button>
     <button class="a-tab-btn" data-page="wateja"><span class="t-icon">👥</span><span class="t-label">Wateja</span></button>
     <button class="a-tab-btn" data-page="kila-siku"><span class="t-icon">📅</span><span class="t-label">Siku</span></button>
@@ -543,11 +543,11 @@ footer b{color:var(--rg-dark);font-weight:400;}
       <div class="nav-section">Muhtasari</div>
       <button class="nav-btn active" data-page="dashibodi"><span class="icon">📊</span>Dashboard</button>
       <div class="nav-section">Duka</div>
-      <button class="nav-btn" data-page="maagizo"><span class="icon">🛎</span>Maagizo<span class="count-pill" id="pendingPill" style="display:none;">0</span></button>
+      <button class="nav-btn" data-page="maagizo"><span class="icon">🛎</span>Orders<span class="count-pill" id="pendingPill" style="display:none;">0</span></button>
       <div class="nav-section">Shughuli</div>
       <button class="nav-btn" data-page="manunuzi"><span class="icon">📦</span>Manunuzi</button>
       <button class="nav-btn" data-page="mauzo"><span class="icon">🛍</span>Mauzo</button>
-      <button class="nav-btn" data-page="gharama"><span class="icon">💸</span>Matumizi</button>
+      <button class="nav-btn" data-page="gharama"><span class="icon">💸</span>Expenses</button>
       <div class="nav-section">Taarifa</div>
       <button class="nav-btn" data-page="hifadhi"><span class="icon">🗃</span>Stock / Bidhaa</button>
       <button class="nav-btn" data-page="wateja"><span class="icon">👥</span>Wateja</button>
@@ -581,7 +581,7 @@ footer b{color:var(--rg-dark);font-weight:400;}
             <div class="summary-grid">
               <div class="mini"><div class="label">Mauzo ya Cash</div><div class="value" id="sumTaskimu">—</div></div>
               <div class="mini"><div class="label">Mauzo ya Mkopo</div><div class="value" id="sumMkopo">—</div></div>
-              <div class="mini"><div class="label">Jumla ya Matumizi</div><div class="value" id="sumGharama">—</div></div>
+              <div class="mini"><div class="label">Jumla ya Expenses</div><div class="value" id="sumGharama">—</div></div>
               <div class="mini"><div class="label">Viatu Vilivyobaki</div><div class="value" id="sumStock">—</div></div>
             </div>
           </div>
@@ -589,7 +589,7 @@ footer b{color:var(--rg-dark);font-weight:400;}
         <div class="section">
           <div class="section-header"><h3>Tahadhari</h3></div>
           <div class="section-body">
-            <div class="alert-box danger" id="alertOrders" style="display:none;"><strong>🛎 Maagizo Mapya</strong><span id="txtOrders">—</span></div>
+            <div class="alert-box danger" id="alertOrders" style="display:none;"><strong>🛎 Orders Mapya</strong><span id="txtOrders">—</span></div>
             <div class="alert-box danger" id="alertHifadhi"><strong>⚠ Hifadhi Ndogo</strong><span id="txtHifadhi">Inaangalia...</span></div>
             <div class="alert-box danger" id="alertMadeni"><strong>⚠ Madeni Yaliyokwisha Muda</strong><span id="txtMadeni">Inaangalia...</span></div>
             <div class="alert-box" id="alertHali"><strong>📊 Hali ya Biashara</strong><span id="txtHali">—</span></div>
@@ -600,11 +600,11 @@ footer b{color:var(--rg-dark);font-weight:400;}
 
     <!-- MAAGIZO -->
     <section id="maagizo" class="page">
-      <div class="topbar"><div class="topbar-left"><h2>Maagizo ya Duka</h2><p>Thibitisha au kataa maagizo ya wateja.</p></div></div>
+      <div class="topbar"><div class="topbar-left"><h2>Orders za Duka</h2><p>Thibitisha au kataa orders za wateja.</p></div></div>
       <div class="section"><div class="section-header"><h3>🕐 Yanayosubiri Uthibitisho</h3></div>
         <div class="section-body" id="pendingOrdersList"><div class="empty-state"><div class="icon">📭</div>Hakuna maagizo yanayosubiri.</div></div>
       </div>
-      <div class="section"><div class="section-header"><h3>📋 Historia ya Maagizo</h3></div>
+      <div class="section"><div class="section-header"><h3>📋 Historia ya Orders</h3></div>
         <div class="section-body"><div class="table-wrap"><table>
           <thead><tr><th>Tarehe</th><th>Mteja</th><th>Simu</th><th>Bidhaa</th><th>Size</th><th>Idadi</th><th>Jumla</th><th>Hali</th></tr></thead>
           <tbody id="tbody-order-history"><tr class="loading-row"><td colspan="8">Inapakia...</td></tr></tbody>
@@ -678,23 +678,23 @@ footer b{color:var(--rg-dark);font-weight:400;}
 
     <!-- GHARAMA -->
     <section id="gharama" class="page">
-      <div class="topbar"><div class="topbar-left"><h2>Matumizi</h2><p>Rekodi gharama za biashara.</p></div></div>
-      <div class="section"><div class="section-header"><h3>➕ Ongeza Matumizi</h3></div>
+      <div class="topbar"><div class="topbar-left"><h2>Expenses</h2><p>Rekodi gharama za biashara.</p></div></div>
+      <div class="section"><div class="section-header"><h3>➕ Ongeza Expenses</h3></div>
         <div class="section-body">
           <div id="notifyGharama" class="notify"></div>
           <div class="form-grid">
             <div class="field"><label>Tarehe</label><input type="date" id="g-tarehe"/></div>
-            <div class="field"><label>Aina ya Matumizi</label><input type="text" id="g-aina" placeholder="mfano: Usafiri, Packaging"/><div class="field-error" id="err-g-aina">Aina inahitajika</div></div>
+            <div class="field"><label>Aina ya Expenses</label><input type="text" id="g-aina" placeholder="mfano: Usafiri, Packaging"/><div class="field-error" id="err-g-aina">Aina inahitajika</div></div>
             <div class="field"><label>Kiasi (TZS)</label><input type="number" id="g-kiasi" placeholder="0"/><div class="field-error" id="err-g-kiasi">Weka kiasi</div></div>
             <div class="field"><label>Maelezo (hiari)</label><input type="text" id="g-maelezo" placeholder="Maelezo zaidi..."/></div>
           </div>
           <div class="controls">
-            <button class="btn gold" onclick="ongezaGharama()">💾 Hifadhi Matumizi</button>
+            <button class="btn gold" onclick="ongezaGharama()">💾 Hifadhi Expenses</button>
             <button class="btn secondary" onclick="safishaGharama()">🗑 Futa</button>
           </div>
         </div>
       </div>
-      <div class="section"><div class="section-header"><h3>📋 Rekodi za Matumizi</h3></div>
+      <div class="section"><div class="section-header"><h3>📋 Rekodi za Expenses</h3></div>
         <div class="section-body"><div class="table-wrap"><table>
           <thead><tr><th>Tarehe</th><th>Aina</th><th>Kiasi</th><th>Maelezo</th><th>Kitendo</th></tr></thead>
           <tbody id="tbody-gharama"><tr class="loading-row"><td colspan="5">Inapakia...</td></tr></tbody>
@@ -833,7 +833,7 @@ footer b{color:var(--rg-dark);font-weight:400;}
       <div class="report-grid">
         <div class="card"><div class="c-label">Jumla ya Manunuzi</div><div class="c-value" id="rep-manunuzi">—</div></div>
         <div class="card"><div class="c-label">Jumla ya Mauzo</div><div class="c-value" id="rep-mauzo">—</div></div>
-        <div class="card"><div class="c-label">Jumla ya Matumizi</div><div class="c-value" id="rep-gharama">—</div></div>
+        <div class="card"><div class="c-label">Jumla ya Expenses</div><div class="c-value" id="rep-gharama">—</div></div>
         <div class="card"><div class="c-label">Faida ya Jumla</div><div class="c-value" id="rep-faida-j">—</div></div>
         <div class="card"><div class="c-label">Faida Halisi</div><div class="c-value" id="rep-faida-h">—</div></div>
         <div class="card"><div class="c-label">Madeni ya Wateja</div><div class="c-value" id="rep-madeni">—</div></div>
@@ -1222,7 +1222,7 @@ async function ongezaGharama(){
   if(!aina){showErr('err-g-aina',true);ok=false;}else showErr('err-g-aina',false);
   if(!kiasi||kiasi<1){showErr('err-g-kiasi',true);ok=false;}else showErr('err-g-kiasi',false);
   if(!ok)return;
-  try{await DB.post('gharama',{tarehe,aina,kiasi,maelezo});safishaGharama();arifu('notifyGharama','✅ Matumizi yamehifadhiwa!','success');await loadAll();}
+  try{await DB.post('gharama',{tarehe,aina,kiasi,maelezo});safishaGharama();arifu('notifyGharama','✅ Expenses yamehifadhiwa!','success');await loadAll();}
   catch(e){arifu('notifyGharama','❌ Hitilafu: '+e.message,'error');}
 }
 
@@ -1262,7 +1262,7 @@ function renderMaagizo(){
   const pending=pendingOrders();
   [$('pendingPill'),$('mTopPill')].forEach(el=>{if(!el)return;el.style.display=pending.length?'inline-flex':'none';el.textContent=pending.length;});
   const alertBox=$('alertOrders');
-  if(pending.length){alertBox.style.display='block';$('txtOrders').textContent=`Maagizo ${pending.length} yanayosubiri uthibitisho.`;}
+  if(pending.length){alertBox.style.display='block';$('txtOrders').textContent=`Orders ${pending.length} yanayosubiri uthibitisho.`;}
   else alertBox.style.display='none';
   $('pendingOrdersList').innerHTML=pending.length?pending.map(o=>`
     <div class="order-card pending">
