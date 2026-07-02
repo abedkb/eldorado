@@ -1329,14 +1329,24 @@ async function saveProductWithPhoto(){
   const btn=$('p-save-btn'),status=$('p-status');
   btn.disabled=true;status.textContent='Inapakia picha...';
   try{
-    const img=await uploadPhoto(uploadFile);status.textContent='Inahifadhi...';
+    const img=await uploadPhoto(uploadFile);
+    if(!img){throw new Error('Picha haikupakiwa — angalia Cloudinary preset');}
+    status.textContent='Inahifadhi bidhaa...';
     const bei_u=parseInt(bei),bei_k=beiGharama||bei_u;
-    await DB.post('bidhaa',{jina,aina:category,bei_kununulia:bei_k,bei_kuuzia:bei_u,idadi,kiwango_chini:2,img,category,badge,onyesha_dukani:true});
+    const bidhaaRes=await DB.post('bidhaa',{jina,aina:category,bei_kununulia:bei_k,bei_kuuzia:bei_u,idadi,kiwango_chini:2,img,category,badge,onyesha_dukani:true});
+    console.log('bidhaa insert response:',bidhaaRes);
+    if(bidhaaRes&&bidhaaRes.code){throw new Error('DB error: '+bidhaaRes.message);}
     await DB.post('manunuzi',{tarehe:leoISO(),jina,aina:category,idadi,bei_kununulia:bei_k,jumla:bei_k*idadi,msambazaji:'Stock ya Awali'});
-    status.textContent='';toast(`"${jina}" imehifadhiwa na inaonekana Dukani!`);
+    status.textContent='';
+    toast(`✅ "${jina}" imehifadhiwa na inaonekana Dukani!`);
     ['p-jina','p-bei','p-bei-gharama','p-badge'].forEach(id=>$(id).value='');
-    $('p-idadi').value='1';$('fileInput').value='';uploadFile=null;renderPreviews();await loadAll();
-  }catch(e){status.textContent='Hitilafu: '+e.message;console.error(e);}
+    $('p-idadi').value='1';$('fileInput').value='';uploadFile=null;renderPreviews();
+    await loadAll();
+  }catch(e){
+    status.textContent='❌ Hitilafu: '+e.message;
+    console.error('saveProductWithPhoto error:',e);
+    toast('❌ '+e.message);
+  }
   btn.disabled=false;
 }
 async function toggleDukani(id){
@@ -1438,7 +1448,7 @@ function hamishaCsv(){
   allGharama.filter(e=>ch(e.tarehe)).forEach(e=>csv+=`Gharama,${e.tarehe},"${e.aina}: ${e.maelezo}",${e.kiasi}\n`);
   const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);a.download=`eldorado-ripoti-${leoISO()}.csv`;a.click();
 }
-function renderAll(){renderDashibodi();renderMaagizo();renderManunuzi();renderMauzo();renderGharama();renderStock();renderWateja();renderRipoti();renderKilaSiku();}
+function renderAll(){renderDashibodi();renderMaagizo();renderManunuzi();renderMauzo();renderGharama();renderStock();renderWateja();renderRipoti();renderKilaSiku();renderGrid(curFilter);}
 
 // ─── INIT ───────────────────────────────────────────────────
 initStore();
