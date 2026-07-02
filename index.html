@@ -95,6 +95,7 @@ body{background:var(--cream);color:var(--ink);font-family:'Jost',sans-serif;font
 .s-img-wrap{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--rg-pale);}
 .s-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.7s ease;}
 .s-card:hover .s-img-wrap img{transform:scale(1.05);}
+/* .s-product-media handles both img and video — see below */
 .s-badge{position:absolute;top:14px;left:14px;background:var(--rg);color:#fff;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;font-weight:600;border-radius:2px;}
 .s-taken-stamp{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(253,250,246,0.7);}
 .s-taken-stamp span{border:2px solid var(--rg);color:var(--rg);font-size:12px;letter-spacing:4px;text-transform:uppercase;padding:9px 20px;font-weight:600;transform:rotate(-15deg);}
@@ -167,6 +168,32 @@ body{background:var(--cream);color:var(--ink);font-family:'Jost',sans-serif;font
 .s-modal-add-btn{width:100%;background:var(--rg);color:#fff;border:none;padding:15px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-weight:600;transition:background 0.3s;border-radius:2px;}
 .s-modal-add-btn:hover{background:var(--rg-dark);}
 .s-modal-add-btn:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* ─── SIZE + COLOR PICKER (storefront modal) ─── */
+.s-attr-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;display:block;}
+.s-color-grid{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
+.s-color-chip{border:2px solid transparent;border-radius:50%;width:28px;height:28px;cursor:pointer;transition:all 0.2s;position:relative;flex-shrink:0;}
+.s-color-chip:hover{transform:scale(1.15);}
+.s-color-chip.active{border-color:var(--rg-dark);box-shadow:0 0 0 2px #fff,0 0 0 4px var(--rg-dark);}
+.s-color-chip[title]::after{content:attr(title);position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:9px;white-space:nowrap;color:var(--ink3);letter-spacing:1px;}
+
+/* ─── PRODUCT MEDIA (image or video) ─── */
+.s-product-media{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.7s ease;}
+.s-card:hover .s-product-media{transform:scale(1.05);}
+video.s-product-media{object-fit:cover;}
+
+/* ─── ADMIN: SIZE CHECKBOXES + COLOR TAGS ─── */
+#adminApp .size-check-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+#adminApp .size-check-label{display:flex;align-items:center;gap:5px;cursor:pointer;font-size:12px;color:var(--a-text);background:var(--a-bg);border:1.5px solid var(--a-line);padding:5px 10px;border-radius:var(--a-radius-sm);transition:all 0.15s;user-select:none;}
+#adminApp .size-check-label:hover{border-color:var(--a-rg);}
+#adminApp .size-check-label input{display:none;}
+#adminApp .size-check-label.checked{background:var(--a-rg-light);border-color:var(--a-rg);color:var(--a-accent);font-weight:600;}
+#adminApp .color-tag-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;min-height:32px;align-items:center;}
+#adminApp .color-tag{display:inline-flex;align-items:center;gap:4px;background:var(--a-rg-light);border:1px solid var(--a-line);padding:3px 10px;border-radius:999px;font-size:12px;}
+#adminApp .color-tag button{background:none;border:none;color:var(--a-muted);cursor:pointer;font-size:13px;line-height:1;padding:0;}
+#adminApp .color-input-row{display:flex;gap:6px;margin-top:6px;}
+#adminApp .color-input-row input{flex:1;}
+#adminApp .color-input-row button{flex-shrink:0;}
 @media(max-width:620px){.s-modal-box{grid-template-columns:1fr;}.s-modal-photo{max-height:250px;}}
 
 /* ─── CONTACT ─── */
@@ -475,15 +502,22 @@ footer b{color:var(--rg-dark);font-weight:400;}
 <!-- QUICK VIEW MODAL -->
 <div class="s-modal-bg" id="modalBg" onclick="closeBgModal(event)">
   <div class="s-modal-box">
-    <img class="s-modal-photo" id="mPhoto" src="" alt=""/>
+    <div id="mMediaWrap" style="position:relative;min-height:320px;background:var(--rg-pale);">
+      <img class="s-modal-photo" id="mPhoto" src="" alt="" style="display:block;"/>
+      <video class="s-modal-photo" id="mVideo" src="" autoplay muted loop playsinline style="display:none;"></video>
+    </div>
     <div class="s-modal-info">
       <button class="s-close-btn" onclick="closeModal()">✕</button>
       <span class="s-modal-cat" id="mCat"></span>
       <h3 class="s-modal-name" id="mName"></h3>
       <p class="s-modal-price" id="mPrice"></p>
       <div id="mTakenNotice" class="s-modal-taken" style="display:none;">This item is currently unavailable</div>
-      <span class="s-size-label">Select Size (EU)</span>
+      <span class="s-attr-label">Select Size (EU)</span>
       <div class="s-size-grid" id="mSizes"></div>
+      <div id="mColorSection" style="display:none;">
+        <span class="s-attr-label" style="margin-top:16px;">Select Color</span>
+        <div class="s-color-grid" id="mColors"></div>
+      </div>
       <button class="s-modal-add-btn" id="mAddBtn" onclick="addFromModal()">Add to Cart</button>
     </div>
   </div>
@@ -608,8 +642,8 @@ footer b{color:var(--rg-dark);font-weight:400;}
       </div>
       <div class="section"><div class="section-header"><h3>📋 Historia ya Orders</h3></div>
         <div class="section-body"><div class="table-wrap"><table>
-          <thead><tr><th>Tarehe</th><th>Mteja</th><th>Simu</th><th>Bidhaa</th><th>Size</th><th>Idadi</th><th>Jumla</th><th>Hali</th></tr></thead>
-          <tbody id="tbody-order-history"><tr class="loading-row"><td colspan="8">Inapakia...</td></tr></tbody>
+          <thead><tr><th>Tarehe</th><th>Mteja</th><th>Simu</th><th>Bidhaa</th><th>Size</th><th>Color</th><th>Idadi</th><th>Jumla</th><th>Hali</th></tr></thead>
+          <tbody id="tbody-order-history"><tr class="loading-row"><td colspan="9">Inapakia...</td></tr></tbody>
         </table></div></div>
       </div>
     </section>
@@ -712,9 +746,9 @@ footer b{color:var(--rg-dark);font-weight:400;}
         <div class="section-body">
           <p style="font-size:12px;color:var(--a-muted);margin-bottom:14px;">Bidhaa hii itaonekana papo hapo kwenye duka la wateja.</p>
           <div class="upload-box" id="uploadBox">
-            <input type="file" id="fileInput" accept="image/*" onchange="onFilePick(this)"/>
+            <input type="file" id="fileInput" accept="image/*,video/*" onchange="onFilePick(this)"/>
             <div class="upload-icon-txt">👠</div>
-            <p class="upload-hint">Bonyeza au buruta picha ya viatu hapa</p>
+            <p class="upload-hint">Bonyeza au buruta picha <strong>au video</strong> ya viatu hapa</p>
           </div>
           <div class="previews" id="previews"></div>
           <div class="form-grid">
@@ -732,6 +766,23 @@ footer b{color:var(--rg-dark);font-weight:400;}
               </select>
             </div>
             <div class="field"><label>Lebo (hiari)</label><input type="text" id="p-badge" placeholder="mfano: New Arrival"/></div>
+            <div class="field full">
+              <label>Sizes Available (EU)</label>
+              <div class="size-check-grid" id="sizeCheckGrid">
+                ${['36','37','38','39','40','41','42','43'].map(s=>`
+                <label class="size-check-label" id="szlbl-${s}" onclick="toggleSizeCheck('${s}')">
+                  <input type="checkbox" value="${s}"/> ${s}
+                </label>`).join('')}
+              </div>
+            </div>
+            <div class="field full">
+              <label>Colors Available</label>
+              <div class="color-tag-wrap" id="colorTagWrap"></div>
+              <div class="color-input-row">
+                <input type="text" id="colorInput" placeholder="Type color (e.g. Black, Rose Gold) then press Add" onkeydown="if(event.key==='Enter'){event.preventDefault();addColorTag();}"/>
+                <button class="btn sm secondary" onclick="addColorTag()">+ Add</button>
+              </div>
+            </div>
           </div>
           <p class="notify" id="p-status" style="display:block;background:transparent;color:var(--a-amber);"></p>
           <div class="controls">
@@ -926,7 +977,7 @@ function sScrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smo
 let allBidhaa=[],allManunuzi=[],allMauzo=[],allGharama=[],allWateja=[];
 let isAdmin=false;
 let maalipoMteja=null,deleteAction=null,rejectAction=null;
-let cart=[],curFilter='all',modalProduct=null,modalSize='38',uploadFile=null;
+let cart=[],curFilter='all',modalProduct=null,modalSize='',modalColor='',uploadFile=null;
 let pollInterval=null,lastHash='';
 
 // ════════════════════════════════════════════════════════════════
@@ -955,7 +1006,10 @@ function renderGrid(f='all'){
     const ic=cart.some(c=>c.id===p.id);
     return `<div class="s-card fade-in${soldOut?' taken':''}" style="transition-delay:${i*0.06}s">
       <div class="s-img-wrap">
-        <img src="${p.img||blank}" alt="${p.jina}" loading="lazy" onerror="this.src='${blank}'"/>
+        ${p.media_type==='video'
+          ? `<video class="s-product-media" src="${p.img}" autoplay muted loop playsinline></video>`
+          : `<img class="s-product-media" src="${p.img||blank}" alt="${p.jina}" loading="lazy" onerror="this.src='${blank}'"/>`
+        }
         ${p.badge?`<span class="s-badge">${p.badge}</span>`:''}
         ${soldOut?`<div class="s-taken-stamp"><span>Sold Out</span></div>`:`<div class="s-hover-overlay"><button class="s-qv-btn" onclick="openModal('${p.id}')">Quick View</button></div>`}
       </div>
@@ -981,11 +1035,8 @@ function doFilter(cat,btn){
 
 // ─── CART ───────────────────────────────────────────────────
 function addToCart(id){
-  const p=allBidhaa.find(x=>x.id===id);if(!p||p.idadi<=0)return;
-  const ex=cart.find(c=>c.id===id);
-  if(ex){if(ex.qty<p.idadi)ex.qty++;else{toast('Hakuna stock zaidi ya '+p.idadi);return;}}
-  else cart.push({id:p.id,name:p.jina,price:p.bei_kuuzia,img:p.img,qty:1,size:'38',maxQty:p.idadi});
-  updateCartUI();renderGrid(curFilter);toast(p.jina+' added to cart');
+  // Always open modal so customer can pick size + color
+  openModal(id);
 }
 function openCart(){$('cartOverlay').classList.add('open');$('cartSidebar').classList.add('open');renderCart();}
 function closeCart(){$('cartOverlay').classList.remove('open');$('cartSidebar').classList.remove('open');}
@@ -994,32 +1045,32 @@ function renderCart(){
   if(!cart.length){body.innerHTML='<div class="s-cart-empty">Your cart is empty.<br><br>Browse our collection.</div>';footer.style.display='none';return;}
   footer.style.display='block';
   body.innerHTML=cart.map(it=>`<div class="s-cart-item">
-    <img class="s-cart-item-img" src="${it.img}" alt="${it.name}" onerror="this.style.background='#F7EDE2'"/>
+    ${it.media_type==='video'
+      ? `<video class="s-cart-item-img" src="${it.img}" autoplay muted loop playsinline></video>`
+      : `<img class="s-cart-item-img" src="${it.img}" alt="${it.name}" onerror="this.style.background='#F7EDE2'"/>`
+    }
     <div class="s-cart-item-info">
       <p class="s-cart-item-name">${it.name}</p>
       <p class="s-cart-item-price">TZS ${Number(it.price).toLocaleString()}/=</p>
-      <div class="s-size-row">Size (EU):
-        <select class="s-size-sel" onchange="setSize('${it.id}',this.value)">
-          ${SHOE_SIZES.map(s=>`<option value="${s}"${it.size===s?' selected':''}>${s}</option>`).join('')}
-        </select>
-      </div>
+      <p style="font-size:11px;color:var(--ink3);margin-bottom:6px;letter-spacing:1px;">
+        Size: EU ${it.size}${it.color?' &nbsp;·&nbsp; Color: '+it.color:''}
+      </p>
       <div class="s-qty-row">
-        <button class="s-qty-btn" onclick="changeQty('${it.id}',-1)">−</button>
+        <button class="s-qty-btn" onclick="changeQty('${it.cartKey}',-1)">−</button>
         <span>${it.qty}</span>
-        <button class="s-qty-btn" onclick="changeQty('${it.id}',1)">+</button>
-        <button class="s-rm-btn" onclick="removeItem('${it.id}')">✕</button>
+        <button class="s-qty-btn" onclick="changeQty('${it.cartKey}',1)">+</button>
+        <button class="s-rm-btn" onclick="removeItem('${it.cartKey}')">✕</button>
       </div>
     </div>
   </div>`).join('');
   $('cartTotal').textContent='TZS '+cart.reduce((s,i)=>s+i.price*i.qty,0).toLocaleString()+'/=';
 }
-function changeQty(id,d){
-  const i=cart.find(c=>c.id===id);if(!i)return;
+function changeQty(cartKey,d){
+  const i=cart.find(c=>c.cartKey===cartKey);if(!i)return;
   if(d>0&&i.qty>=i.maxQty){toast('Hakuna stock zaidi ya '+i.maxQty);return;}
-  i.qty+=d;if(i.qty<=0)removeItem(id);else{updateCartUI();renderCart();}
+  i.qty+=d;if(i.qty<=0)removeItem(cartKey);else{updateCartUI();renderCart();}
 }
-function setSize(id,s){const i=cart.find(c=>c.id===id);if(i)i.size=s;}
-function removeItem(id){cart=cart.filter(c=>c.id!==id);updateCartUI();renderCart();renderGrid(curFilter);}
+function removeItem(cartKey){cart=cart.filter(c=>c.cartKey!==cartKey);updateCartUI();renderCart();renderGrid(curFilter);}
 function updateCartUI(){const n=cart.reduce((s,i)=>s+i.qty,0);$('cartCount').textContent=n;$('mCartCount').textContent=n;}
 
 // ─── PLACE ORDER ────────────────────────────────────────────
@@ -1035,7 +1086,8 @@ async function placeOrder(){
         tarehe,mteja:'Mteja wa Duka',simu_mteja:phone,jina:it.name,aina_bidhaa:p.aina,
         idadi:it.qty,bei_kuuzia:it.price,bei_kununulia:p.bei_kununulia,jumla:it.price*it.qty,
         aina:'Mkopo',kilicholipwa:0,bakaa:it.price*it.qty,
-        chanzo:'Duka',hali_order:'Inasubiri',bidhaa_id:p.id,size:it.size
+        chanzo:'Duka',hali_order:'Inasubiri',bidhaa_id:p.id,
+        size:it.size,color:it.color||null
       });
     }
     orderWhatsApp(phone);
@@ -1045,31 +1097,92 @@ async function placeOrder(){
 }
 function orderWhatsApp(phone){
   let msg="Hello El Dorado Boutique! 👠\n\n*My Order:*\n";
-  cart.forEach(i=>{msg+=`\n• ${i.name}\n  Size: EU ${i.size} | Qty: ${i.qty} | TZS ${(i.price*i.qty).toLocaleString()}/=`;});
-  msg+=`\n\n*Total: TZS ${cart.reduce((s,i)=>s+i.price*i.qty,0).toLocaleString()}/=*\n\nPhone: ${phone}\nDelivery Location: `;
+  cart.forEach(i=>{
+    msg+=`\n• ${i.name}`;
+    msg+=`\n  Size: EU ${i.size}`;
+    if(i.color)msg+=` | Color: ${i.color}`;
+    msg+=` | Qty: ${i.qty} | TZS ${(i.price*i.qty).toLocaleString()}/=`;
+  });
+  msg+=`\n\n*Total: TZS ${cart.reduce((s,i)=>s+i.price*i.qty,0).toLocaleString()}/=*`;
+  msg+=`\n\nPhone: ${phone}\nDelivery Location: `;
   window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank');
 }
 
 // ─── MODAL ──────────────────────────────────────────────────
 function openModal(id){
   const p=allBidhaa.find(x=>x.id===id);if(!p)return;
-  modalProduct=p;modalSize='38';
-  $('mPhoto').src=p.img;$('mName').textContent=p.jina;
+  modalProduct=p;modalSize='';modalColor='';
+  // Media — show video or image
+  const photo=$('mPhoto'),video=$('mVideo');
+  if(p.media_type==='video'){
+    video.src=p.img;video.style.display='block';
+    photo.style.display='none';
+  } else {
+    photo.src=p.img;photo.style.display='block';
+    video.src='';video.style.display='none';
+  }
+  $('mName').textContent=p.jina;
   $('mPrice').textContent='TZS '+Number(p.bei_kuuzia).toLocaleString()+'/=';
   $('mCat').textContent=(CAT_LABEL[p.category]||p.category||'').toUpperCase();
   const soldOut=p.idadi<=0;
   $('mTakenNotice').style.display=soldOut?'block':'none';
   $('mAddBtn').disabled=soldOut;
-  $('mSizes').innerHTML=SHOE_SIZES.map(s=>`<button class="s-size-chip${s==='38'?' active':''}" onclick="pickSize(this,'${s}')">${s}</button>`).join('');
+  // Sizes — only show what admin set, fallback to all if none set
+  const sizes=(p.sizes_available&&p.sizes_available.length)?p.sizes_available:SHOE_SIZES;
+  modalSize=sizes[0]||'';
+  $('mSizes').innerHTML=sizes.map((s,i)=>`
+    <button class="s-size-chip${i===0?' active':''}" onclick="pickSize(this,'${s}')">${s}</button>
+  `).join('');
+  // Colors — show only if admin set colors
+  const colors=p.colors_available&&p.colors_available.length?p.colors_available:[];
+  const colorSection=$('mColorSection');
+  if(colors.length){
+    colorSection.style.display='block';
+    modalColor=colors[0];
+    $('mColors').innerHTML=colors.map((c,i)=>`
+      <div class="s-color-chip${i===0?' active':''}" style="background:${cssColor(c)}"
+        title="${c}" onclick="pickColor(this,'${c}')"></div>
+    `).join('');
+  } else {
+    colorSection.style.display='none';
+    modalColor='';
+  }
   $('modalBg').classList.add('open');
 }
-function pickSize(btn,s){document.querySelectorAll('.s-size-chip').forEach(b=>b.classList.remove('active'));btn.classList.add('active');modalSize=s;}
+// Map color name to a CSS color for the swatch — common colors, fallback to rg
+function cssColor(name){
+  const map={black:'#1a1a1a',white:'#f5f5f5',red:'#C0392B',pink:'#E91E8C',
+    nude:'#D4A574',beige:'#C8A882',brown:'#8B5E3C',tan:'#C19A6B',
+    gold:'#C9A84C','rose gold':'#C4956A',silver:'#A8A9AD',grey:'#9E9E9E',
+    gray:'#9E9E9E',blue:'#1565C0',navy:'#1A237E',green:'#2D6A4F',
+    purple:'#6A1B9A',yellow:'#F9A825',orange:'#E65100',cream:'#FFFDD0'};
+  return map[name.toLowerCase()]||'var(--rg)';
+}
+function pickSize(btn,s){
+  document.querySelectorAll('.s-size-chip').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');modalSize=s;
+}
+function pickColor(el,c){
+  document.querySelectorAll('.s-color-chip').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');modalColor=c;
+}
 function addFromModal(){
   if(!modalProduct||modalProduct.idadi<=0)return;
-  const ex=cart.find(c=>c.id===modalProduct.id);
-  if(ex){if(ex.qty<modalProduct.idadi){ex.qty++;ex.size=modalSize;}else{toast('Hakuna stock zaidi');return;}}
-  else cart.push({id:modalProduct.id,name:modalProduct.jina,price:modalProduct.bei_kuuzia,img:modalProduct.img,qty:1,size:modalSize,maxQty:modalProduct.idadi});
-  updateCartUI();renderGrid(curFilter);closeModal();toast(modalProduct.jina+' added to cart');
+  const colors=modalProduct.colors_available&&modalProduct.colors_available.length?modalProduct.colors_available:[];
+  if(colors.length&&!modalColor){toast('Chagua rangi kwanza');return;}
+  // Use size+color as a unique cart key so same shoe in different sizes/colors = separate rows
+  const cartKey=modalProduct.id+'|'+modalSize+'|'+modalColor;
+  const ex=cart.find(c=>c.cartKey===cartKey);
+  if(ex){
+    if(ex.qty<modalProduct.idadi)ex.qty++;
+    else{toast('Hakuna stock zaidi ya '+modalProduct.idadi);return;}
+  } else {
+    cart.push({cartKey,id:modalProduct.id,name:modalProduct.jina,price:modalProduct.bei_kuuzia,
+      img:modalProduct.img,media_type:modalProduct.media_type,qty:1,
+      size:modalSize,color:modalColor,maxQty:modalProduct.idadi});
+  }
+  updateCartUI();renderGrid(curFilter);closeModal();
+  toast(`${modalProduct.jina} (${modalSize}${modalColor?' · '+modalColor:''}) added to cart`);
 }
 function closeBgModal(e){if(e.target===$('modalBg'))closeModal();}
 function closeModal(){$('modalBg').classList.remove('open');}
@@ -1270,7 +1383,7 @@ function renderMaagizo(){
     <div class="order-card pending">
       <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
         <div>
-          <strong>${o.jina}</strong> ${o.size?`(Size EU: ${o.size})`:''}<br>
+          <strong>${o.jina}</strong> ${o.size?`(Size EU: ${o.size}${o.color?' · '+o.color:''})`:''}<br>
           <span style="font-size:12px;color:var(--a-muted)">Pairs: ${o.idadi} · ${pesa(o.jumla)} · ${o.tarehe}</span><br>
           <span style="font-size:12px;color:var(--a-muted)">📞 ${o.simu_mteja||'Haijasemwa'}</span>
         </div>
@@ -1283,8 +1396,8 @@ function renderMaagizo(){
   const hist=allMauzo.filter(s=>s.chanzo==='Duka');
   $('tbody-order-history').innerHTML=hist.length?hist.map(o=>{
     const cls=o.hali_order==='Imethibitishwa'?'pill-green':o.hali_order==='Imekataliwa'?'pill-red':'pill-amber';
-    return`<tr><td>${o.tarehe}</td><td>${o.mteja}</td><td>${o.simu_mteja||'—'}</td><td>${o.jina}</td><td>${o.size||'—'}</td><td>${o.idadi}</td><td>${pesa(o.jumla)}</td><td><span class="pill ${cls}">${o.hali_order}</span></td></tr>`;
-  }).join(''):safuTupu(8,'Bado hakuna maagizo kutoka dukani.');
+    return`<tr><td>${o.tarehe}</td><td>${o.mteja}</td><td>${o.simu_mteja||'—'}</td><td>${o.jina}</td><td>${o.size||'—'}</td><td>${o.color||'—'}</td><td>${o.idadi}</td><td>${pesa(o.jumla)}</td><td><span class="pill ${cls}">${o.hali_order}</span></td></tr>`;
+  }).join(''):safuTupu(9,'Bado hakuna maagizo kutoka dukani.');
 }
 async function thibitishaOrder(id){
   const o=allMauzo.find(x=>x.id===id);if(!o)return;
@@ -1302,45 +1415,113 @@ function funguaRejectOrder(id){
   $('btn-thibitisha-reject').onclick=async()=>{await DB.patch('mauzo',`id=eq.${id}`,{hali_order:'Imekataliwa',bakaa:0});toast('Agizo limekataliwa');fungaAdminModal();await loadAll();};
 }
 
-// ─── PHOTO UPLOAD ───────────────────────────────────────────
+// ─── PHOTO / VIDEO UPLOAD ───────────────────────────────────────
+function isVideoFile(file){return file&&file.type.startsWith('video/');}
 function uploadPhoto(file){
   return new Promise((resolve,reject)=>{
-    const fd=new FormData();fd.append('file',file);fd.append('upload_preset',PRESET);fd.append('cloud_name',CLD);
-    const xhr=new XMLHttpRequest();xhr.open('POST',`https://api.cloudinary.com/v1_1/${CLD}/image/upload`,true);xhr.timeout=60000;
-    xhr.onload=()=>{try{const d=JSON.parse(xhr.responseText);if(d.secure_url)resolve(d.secure_url);else reject(new Error(d.error?.message||'Upload failed'));}catch(e){reject(new Error('Invalid response'));}};
-    xhr.onerror=()=>reject(new Error('Network error'));xhr.ontimeout=()=>reject(new Error('Upload timed out'));xhr.send(fd);
+    const fd=new FormData();
+    fd.append('file',file);
+    fd.append('upload_preset',PRESET);
+    fd.append('cloud_name',CLD);
+    // 'auto' handles both images and videos
+    const endpoint=`https://api.cloudinary.com/v1_1/${CLD}/auto/upload`;
+    const xhr=new XMLHttpRequest();
+    xhr.open('POST',endpoint,true);
+    xhr.timeout=120000; // 2 min for videos
+    xhr.onload=()=>{
+      try{
+        const d=JSON.parse(xhr.responseText);
+        if(d.secure_url)resolve({url:d.secure_url,type:d.resource_type});
+        else reject(new Error(d.error?.message||'Upload failed'));
+      }catch(e){reject(new Error('Invalid response'));}
+    };
+    xhr.onerror=()=>reject(new Error('Network error'));
+    xhr.ontimeout=()=>reject(new Error('Upload timed out — try a smaller file'));
+    xhr.send(fd);
   });
 }
 function onFilePick(input){uploadFile=input.files[0]||null;renderPreviews();}
-function renderPreviews(){if(!uploadFile){$('previews').innerHTML='';return;}const url=URL.createObjectURL(uploadFile);$('previews').innerHTML=`<div class="preview-item"><img src="${url}"/><button class="preview-rm" onclick="removePreview()">✕</button></div>`;}
+function renderPreviews(){
+  if(!uploadFile){$('previews').innerHTML='';return;}
+  const url=URL.createObjectURL(uploadFile);
+  const isVid=isVideoFile(uploadFile);
+  $('previews').innerHTML=`<div class="preview-item">
+    ${isVid
+      ? `<video src="${url}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" autoplay muted loop playsinline></video>`
+      : `<img src="${url}"/>`
+    }
+    <button class="preview-rm" onclick="removePreview()">✕</button>
+  </div>`;
+}
 function removePreview(){uploadFile=null;$('fileInput').value='';renderPreviews();}
 const ub=$('uploadBox');
 ub.addEventListener('dragover',e=>{e.preventDefault();ub.classList.add('drag');});
 ub.addEventListener('dragleave',()=>ub.classList.remove('drag'));
 ub.addEventListener('drop',e=>{e.preventDefault();ub.classList.remove('drag');const f=Array.from(e.dataTransfer.files).find(f=>f.type.startsWith('image/'));if(f){uploadFile=f;renderPreviews();}});
 
+// ─── SIZE CHECK HELPERS ──────────────────────────────────────
+let selectedColors=[];
+function toggleSizeCheck(size){
+  const lbl=$(`szlbl-${size}`);if(!lbl)return;
+  lbl.classList.toggle('checked');
+}
+function getSelectedSizes(){
+  return ['36','37','38','39','40','41','42','43'].filter(s=>{
+    const l=$(`szlbl-${s}`);return l&&l.classList.contains('checked');
+  });
+}
+function addColorTag(){
+  const input=$('colorInput');if(!input)return;
+  const val=input.value.trim();if(!val)return;
+  if(!selectedColors.includes(val))selectedColors.push(val);
+  input.value='';renderColorTags();
+}
+function removeColorTag(color){
+  selectedColors=selectedColors.filter(c=>c!==color);renderColorTags();
+}
+function renderColorTags(){
+  const wrap=$('colorTagWrap');if(!wrap)return;
+  wrap.innerHTML=selectedColors.map(c=>`
+    <span class="color-tag">${c}<button onclick="removeColorTag('${c}')">×</button></span>
+  `).join('');
+}
+function resetSizesColors(){
+  ['36','37','38','39','40','41','42','43'].forEach(s=>{
+    const l=$(`szlbl-${s}`);if(l)l.classList.remove('checked');
+  });
+  selectedColors=[];renderColorTags();
+}
+
 async function saveProductWithPhoto(){
   const jina=$('p-jina').value.trim(),bei=$('p-bei').value.trim();
   const beiGharama=parseInt($('p-bei-gharama').value)||0,idadi=parseInt($('p-idadi').value)||1;
   const category=$('p-kategoria').value,badge=$('p-badge').value.trim();
+  const sizes=getSelectedSizes();
+  const colors=[...selectedColors];
   if(!jina){toast('Weka jina la bidhaa');return;}
   if(!bei){toast('Weka bei ya kuuzia');return;}
-  if(!uploadFile){toast('Pakia picha ya viatu');return;}
+  if(!uploadFile){toast('Pakia picha au video ya viatu');return;}
   const btn=$('p-save-btn'),status=$('p-status');
-  btn.disabled=true;status.textContent='Inapakia picha...';
+  btn.disabled=true;status.textContent='Inapakia faili...';
   try{
-    const img=await uploadPhoto(uploadFile);
-    if(!img){throw new Error('Picha haikupakiwa — angalia Cloudinary preset');}
+    const {url:img,type:resourceType}=await uploadPhoto(uploadFile);
+    const media_type=resourceType==='video'?'video':'image';
+    if(!img){throw new Error('Faili haikupakiwa — angalia Cloudinary preset');}
     status.textContent='Inahifadhi bidhaa...';
     const bei_u=parseInt(bei),bei_k=beiGharama||bei_u;
-    const bidhaaRes=await DB.post('bidhaa',{jina,aina:category,bei_kununulia:bei_k,bei_kuuzia:bei_u,idadi,kiwango_chini:2,img,category,badge,onyesha_dukani:true});
+    const bidhaaRes=await DB.post('bidhaa',{
+      jina,aina:category,bei_kununulia:bei_k,bei_kuuzia:bei_u,idadi,
+      kiwango_chini:2,img,media_type,category,badge,onyesha_dukani:true,
+      sizes_available:sizes,colors_available:colors
+    });
     console.log('bidhaa insert response:',bidhaaRes);
     if(bidhaaRes&&bidhaaRes.code){throw new Error('DB error: '+bidhaaRes.message);}
     await DB.post('manunuzi',{tarehe:leoISO(),jina,aina:category,idadi,bei_kununulia:bei_k,jumla:bei_k*idadi,msambazaji:'Stock ya Awali'});
     status.textContent='';
     toast(`✅ "${jina}" imehifadhiwa na inaonekana Dukani!`);
     ['p-jina','p-bei','p-bei-gharama','p-badge'].forEach(id=>$(id).value='');
-    $('p-idadi').value='1';$('fileInput').value='';uploadFile=null;renderPreviews();
+    $('p-idadi').value='1';$('fileInput').value='';uploadFile=null;
+    renderPreviews();resetSizesColors();
     await loadAll();
   }catch(e){
     status.textContent='❌ Hitilafu: '+e.message;
