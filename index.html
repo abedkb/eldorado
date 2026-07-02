@@ -769,10 +769,14 @@ footer b{color:var(--rg-dark);font-weight:400;}
             <div class="field full">
               <label>Sizes Available (EU)</label>
               <div class="size-check-grid" id="sizeCheckGrid">
-                ${['36','37','38','39','40','41','42','43'].map(s=>`
-                <label class="size-check-label" id="szlbl-${s}" onclick="toggleSizeCheck('${s}')">
-                  <input type="checkbox" value="${s}"/> ${s}
-                </label>`).join('')}
+                <label class="size-check-label" id="szlbl-36" onclick="toggleSizeCheck('36')"><input type="checkbox" value="36"/> 36</label>
+                <label class="size-check-label" id="szlbl-37" onclick="toggleSizeCheck('37')"><input type="checkbox" value="37"/> 37</label>
+                <label class="size-check-label" id="szlbl-38" onclick="toggleSizeCheck('38')"><input type="checkbox" value="38"/> 38</label>
+                <label class="size-check-label" id="szlbl-39" onclick="toggleSizeCheck('39')"><input type="checkbox" value="39"/> 39</label>
+                <label class="size-check-label" id="szlbl-40" onclick="toggleSizeCheck('40')"><input type="checkbox" value="40"/> 40</label>
+                <label class="size-check-label" id="szlbl-41" onclick="toggleSizeCheck('41')"><input type="checkbox" value="41"/> 41</label>
+                <label class="size-check-label" id="szlbl-42" onclick="toggleSizeCheck('42')"><input type="checkbox" value="42"/> 42</label>
+                <label class="size-check-label" id="szlbl-43" onclick="toggleSizeCheck('43')"><input type="checkbox" value="43"/> 43</label>
               </div>
             </div>
             <div class="field full">
